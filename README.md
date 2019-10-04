@@ -1,5 +1,5 @@
 ## Print4JS - Print Page for JavaScript
-This repository is a fork of [`print.js`](https://github.com/crabbly/Print.js) by [Rodrigo Vieira](https://github.com/crabbly). Additional content in the repository are added to understand the underlying concept of [`print.js`](https://github.com/crabbly/Print.js). Content added to this fork are added as support for the [learning resource `AppLSAC` in Wikiversity ](https://en.wikiversity.org/wiki/AppLSAC) (see [Wikiversity `AppLSAC/Print`](https://en.wikiversity.org/wiki/AppLSAC/Print).  
+This repository is a fork of [`print.js`](https://github.com/crabbly/Print.js) by [Rodrigo Vieira](https://github.com/crabbly). Additional content in the repository are added to understand the underlying concept of [`print.js`](https://github.com/crabbly/Print.js). Content added to this fork are added as support for the learning resource [`AppLSAC`](https://en.wikiversity.org/wiki/AppLSAC) in Wikiversity  (see [Wikiversity `AppLSAC/Print`](https://en.wikiversity.org/wiki/AppLSAC/Print).  
 
 Javascript code can be used to creates a print job from the browser. With `print.js` specific content elements  can be submitted to printer API of the browser. Examples for content elements are:
 * Form content,
