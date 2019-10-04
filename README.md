@@ -1,97 +1,94 @@
-# Print.js
+## Print4JS - Print Page for JavaScript
+This repository is a fork of `print.js` and will be extended as a learning resource for [`AppLSAC`](https://en.wikiversity.org/wiki/AppLSAC). Javascript code can be used to creates a print job from the browser. Printed can be specific browser content like
+* Form content,
+* Images in a canvas,
+* PDF files,
+* Content of a textarea,
+* ...
+Javascript has as `print()` method of the `window` object of the browser, but this method allow the printing of content of the current browser window only. `print.js` allows printing of specific content elements by calling the `window.print()` function on new window, that contains the desired content only. This concept leads to the 4 main steps:
+* **(Open Window)** Open a new browser window,
+* **(Create Content)** write the content, that should be printed into the browser window with Javascript,
+* **(Call Printer API)** call the `window.print()` function for the generated browser window,
+* **(Close Window)** close the browser window
 
-[![Build Status](https://travis-ci.org/crabbly/Print.js.svg?branch=master)](https://travis-ci.org/crabbly/Print.js)
-[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](LICENSE)
-[![Standard - JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](http://standardjs.com/)
-[![npm](https://img.shields.io/npm/v/print-js.svg)](https://www.npmjs.com/package/print-js)
+This repository was forked from [`print.js`](https://github.com/crabbly/Print.js) and inspired by developements of Rodrigo Vieira (Github User: [crabbly](https://github.com/crabbly)). The repository is used learn about printing methods within a [Javascript  WebApps](https://en.wikiversity.org/wiki/AppLSAC/Print).
 
-A tiny javascript library to help printing from the web.
+## Print4JS Steps
+The next steps describe the basic constituents of creating a print job within a WebApp. The following code shows the underlying software design.
+```html
+<html>
+<head></head>
+<body>
+    <input type="button" value="Open Print Window" onclick="openPrintWindow()" />
+</body>
+<script type="text/javascript">
+    function openPrintWindow(pURL) {
+        var print_win = window.open(pURL);
+        print_win.focus();
+        return print_win
+    }
 
-> For documentation and examples please visit: [printjs.crabbly.com](http://printjs.crabbly.com)
+    function addPrintContent(pPrintWin,pContent) {
+      // pContent = '<h1>Hello, World!</h1>';
+      // append to document body
+      pPrintWin.document.body.innerHTML += pContent;
 
-## Installation
+    }
+    // var vPrintWin = openPrintWindow('about:blank');
+    var vPrintWin = openPrintWindow('printwindow.html');
+    addPrintContent(vPrintWin,"<h1>Hello, World!</h1>");
+    vPrintWin.print();
 
-You can download the latest version of Print.js from the [GitHub releases](https://github.com/crabbly/Print.js/releases/latest) or use the [Print.js CDN](http://printjs.crabbly.com/#cdn) available on the documentation page.
+</script>
+</html>
+```
+For application in a WebApp (e.g. [AppLSAC](https://en.wikiversity.org/wiki/AppLSAC/Print) use the [library `print.js`](https://github.com/niebert/print4js/blob/master/dist/print.js).
 
-To install via npm:
+### Open Browser Window
+the following HTML code shows a basic concept of opening a printer window.
+```javascript
+// create a new printer window
+var print_win = window.open('printwindow.html');
+// set the focus to the browser window
+print_win.focus();
+```
+### Write Content to Browser Window
+```javascript
+// create a new printer window
+var print_win = window.open('about:blank');
+// set the focus to the browser window
+print_win.focus();
+var content = '<h1>Hello, World!</h1>';
+// append to document body
+print_win.document.body.innerHTML += content;
 
-```bash
-npm install print-js --save
 ```
 
-To install via yarn:
+### Call Printer Dialog
+Assume the window with the generated content in `vPrintWin` then the content can be submitted to the printer with the `vPrintWin.print()` command.
 
-```bash
-yarn add print-js
+
+### Close Printer Content Window
+In general closing a window is called with `window.close()`. In this case we are closing the window with the Printer Content. The printer window can be closed with `vPrintWin.close()`, if the window was created/opened from the WebApp with Javascript (see also[AppLSAC](https://en.wikiversity.org/wiki/AppLSAC) .
+```javascript
+// create a new printer window
+var print_win = window.open('printwindow.html');
+// set the focus to the browser window
+print_win.close();
 ```
 
-Import the library into your project:
-
-```js
-import printJS from 'print-js'
+### HTML Content of Printer Window
+```html
+<html>
+  <link href="css/print.css" rel="stylesheet">
+  <head>
+    <title>
+      Printer Window
+    </title>
+  </head>
+  <body>
+  </body>
+</html>
 ```
-
-## Documentation
-
-You can find documentation at [printjs.crabbly.com](http://printjs.crabbly.com/#documentation).
-
-## Contributing to Print.js
-
-[![devDependencies Status](https://david-dm.org/crabbly/print.js/dev-status.svg)](https://david-dm.org/crabbly/print.js?type=dev)
-[![dependencies Status](https://david-dm.org/crabbly/print.js/status.svg)](https://david-dm.org/crabbly/print.js)
-
-Contributions to Print.js are welcome and encouraged.
-
-##### Using issues
-
-The [issue tracker](https://github.com/crabbly/Print.js/issues) is the preferred channel for reporting bugs, requesting new features and submitting pull requests.
-
-Keep in mind that we would like to keep this a lightweight library.
-
-Please do not use the issues channel for support requests. For help using Print.js, please ask questions on Stack Overflow and use the tag `printjs`.
-
-##### Reporting bugs
-
-Well structured, detailed bug reports are hugely valuable for the project.
-
- - Check the issue search to see if it has already been reported
- - Isolate the problem to a simple test case
-
-Please provide any additional details associated with the bug.
-
-##### Pull requests
-
-Clear, concise pull requests are excellent at continuing the project's community driven growth.  
-
-Please make your commits in logical sections with clear commit messages.  
-
-##### Setting up a dev environment
-
-```bash
-npm install
-npm run watch
-```
-
-##### Tests
-
-The library is written following the [Javascript Standard](https://standardjs.com) code style. When running tests, we will also test for any style issues or warnings.
-
-Automated tests are written using the [Jasmine](https://jasmine.github.io) framework and [Karma](https://karma-runner.github.io) runner.
-
-To run the automated tests:
-
-```bash
-npm run test
-```
-
-To manually test the library features:
-
-```bash
-npm start
-```
-
-This will serve `test\manual\test.html` and open `http://localhost:8080/test/manual` in your default browser.
-
-## License
-
-Print.js is available under the [MIT license](https://github.com/crabbly/Print.js/blob/master/LICENSE).
+### Remark
+The window of loaded HTML page itself cannot be closed with `window.close()`. This is not a bug. This a security feature, because web sites should not be able to close a browser window with all open tabs, because the user might loose the content of forms in that window.
