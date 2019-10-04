@@ -1,5 +1,7 @@
 ## Print4JS - Print Page for JavaScript
-This repository is a fork of `print.js` and will be extended as a learning resource for [`AppLSAC`](https://en.wikiversity.org/wiki/AppLSAC). Javascript code can be used to creates a print job from the browser. Printed can be specific browser content like
+This repository is a fork of [`print.js`](https://github.com/crabbly/Print.js) by [Rodrigo Vieira](https://github.com/crabbly). Additional content in the repository are added to understand the underlying concept of [`print.js`](https://github.com/crabbly/Print.js). Content added to this fork are added as support for the [learning resource `AppLSAC` in Wikiversity ](https://en.wikiversity.org/wiki/AppLSAC) (see [Wikiversity `AppLSAC/Print`](https://en.wikiversity.org/wiki/AppLSAC/Print).  
+
+Javascript code can be used to creates a print job from the browser. With `print.js` specific content elements  can be submitted to printer API of the browser. Examples for content elements are:
 * Form content,
 * Images in a canvas,
 * PDF files,
@@ -78,6 +80,7 @@ print_win.close();
 ```
 
 ### HTML Content of Printer Window
+The following file shows the content of `printwindow.html`:
 ```html
 <html>
   <link href="css/print.css" rel="stylesheet">
@@ -90,5 +93,7 @@ print_win.close();
   </body>
 </html>
 ```
+The style sheet `css/print.css` format the output to the desired layout (e.g. font size, fonts, ...)
+
 ### Remark
 The window of loaded HTML page itself cannot be closed with `window.close()`. This is not a bug. This a security feature, because web sites should not be able to close a browser window with all open tabs, because the user might loose the content of forms in that window.
