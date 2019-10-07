@@ -1,3 +1,4 @@
+
 ## Print4JS - Print Page for JavaScript
 This repository is a fork of [`print.js`](https://github.com/crabbly/Print.js) by [Rodrigo Vieira](https://github.com/crabbly). Additional content in the repository are added to understand the underlying concept of [`print.js`](https://github.com/crabbly/Print.js). Content added to this fork are added as support for the learning resource [`AppLSAC`](https://en.wikiversity.org/wiki/AppLSAC) in Wikiversity  (see [Wikiversity `AppLSAC/Print`](https://en.wikiversity.org/wiki/AppLSAC/Print).  
 
@@ -14,6 +15,23 @@ Javascript has as `print()` method of the `window` object of the browser, but th
 * **(Close Window)** close the browser window
 
 This repository was forked from [`print.js`](https://github.com/crabbly/Print.js) and inspired by developements of Rodrigo Vieira (Github User: [crabbly](https://github.com/crabbly)). The repository is used learn about printing methods within a [Javascript  WebApps](https://en.wikiversity.org/wiki/AppLSAC/Print).
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Print4JS - Print Page for JavaScript](#print4js---print-page-for-javascript)
+- [Print4JS Steps](#print4js-steps)
+  - [Open Browser Window](#open-browser-window)
+  - [Write Content to Browser Window](#write-content-to-browser-window)
+  - [Call Printer Dialog](#call-printer-dialog)
+  - [Close Printer Content Window](#close-printer-content-window)
+  - [Dynamically Write Content without File Load](#dynamically-write-content-without-file-load)
+  - [HTML Content of Printer Window](#html-content-of-printer-window)
+  - [Remark](#remark)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 
 ## Print4JS Steps
 The next steps describe the basic constituents of creating a print job within a WebApp. The following code shows the underlying software design.
