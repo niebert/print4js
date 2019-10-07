@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Demo 1: Print Content in Textarea</title>
+     <!-- Main CSS -->
+     <link href="css/main.css" rel="stylesheet">
+
+    <script src="js/loadfile4dom.js"></script>
+    <script>
+        var lf4d = new LoadFile4DOM();
+        var options = {
+          "debug": false // if true, it will show the hidden <input type="file" ...> loaders in DOM
+        };
+        lf4d.init(document,options);
+        //-----------------------------------------------
+        //----- Create a new Loader "txtfile" -----------
+        //-----------------------------------------------
+        // with MIME type filter use type="text"
+        //var txtfile = lf4d.get_loader_options("mytxtfile","text");
+
+        // if arbitray files are allowed use type="all"
+        var txtfile = lf4d.get_loader_options("mytxtfile","text");
+        // Define what to do with the loaded data
+        txtfile.returntype = "file"; // data contains the file
+        txtfile.accept = "text/html"; // accept HTML files only
+        console.log("txtfile: "+JSON.stringify(txtfile));
+        txtfile.onload = function (data,err) {
+          if (err) {
+            // do something on error, perr contains error message
+            console.error(err);
+            alert("ERROR: "+err)
+          } else {
+            // do something with the file content in data e.g. store  in a HTML textarea (e.g. <textarea id="mytextarea" ...>
+            console.log("CALL: txtfile.onload()");
+            document.getElementById("mytextarea").value = data;
+          }
+        };
+        // create the loader txtfile
+        lf4d.create_load_dialog(txtfile);
+        //-----------------------------------------------
+
+        function printTextArea() {
+          console.log("Print HTML content in textarea with the ID='mytextarea'");
+          var print_win = window.open("","wPrintWin","width=300,height=300,scrollbars=1,resizable=1");
+          var html = document.getElementById("mytextarea").value;
+
+          // Open a print window print_win
+          print_win.document.open();
+          print_win.document.write(html);
+          print_win.document.close();
+          print_win.focus();
+          print_win.print();
+          print_win.close();
+        }
+
+        function previewTextArea() {
+          console.log("Print HTML content in textarea with the ID='mytextarea'");
+          var preview_win = window.open("","wPreviewtWin","width=600,height=400,toolbar=yes,location=yes,status=yes,menubar=yes,scrollbars=yes,resizable=yes");
+          var html = document.getElementById("mytextarea").value;
+
+          // Open a print window print_win
+          preview_win.document.open();
+          preview_win.document.write(html);
+          preview_win.document.close();
+          preview_win.focus();
+        }
+
+    </script>
+  </head>
+  <body onload="lf4d.create()">
+    <h2>Print4JS - Demo: Print Content in Textarea</h2>
+    This WebApp Demois an <a href="https://en.wikiversity.org/wiki/AppLSAC" target="_blank">AppLSAC</a>
+    <ul>
+      <li>
+        You can edit HTML content in the textarea below and press the <a href="#" onclick="printTextArea()">Print-Button</a>.
+        in a browser.
+      </li>
+      <li>
+        <button onclick="lf4d.open_dialog('mytxtfile');return false">Load HTML File</button>: You can load HTML files into the text area.
+        in a browser.
+      </li>
+      <li>
+        <button onclick="previewTextArea();return false">Preview HTML</button>
+        The content of the textarea below will be used to generate the HTML content in a browser window.
+      </li>
+      <li>
+        <button onclick="printTextArea();return false">Print HTML</button>
+        The content of the textarea below will be used to generate the print window
+      </li>
+    </ul>
+    <hr>
+    <b>HTML Source for Printing:</b>
+    <br>
+    You can load HTML files into the text area.
+    <br>
+    <textarea id="mytextarea" name="ta1" rows="8" cols="80">
+<html>
+  <head>
+    <title>Print4JS Demo</title>
+  </head>
+  <body>
+    <h1>Print4JS Demo: Textarea</h1>
+    Hello World
+  </body>
+</html>
+    </textarea>
+    <hr>
+    <center>
+      <b>
+        <a href="index.html">&lt;&lt; Demo Applications with Print4JS</a>
+      </b>
+    </center>
+  </body>
+</html>
