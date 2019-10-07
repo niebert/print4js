@@ -79,14 +79,33 @@ var print_win = window.open('printwindow.html');
 print_win.close();
 ```
 
+### Dynamically Write Content without File Load
+The following function loads the content of a textarea and writes the HTML content in a new browser window. The content of the browser window will be printed.
+```javascript
+function printTextArea() {
+  console.log("Print HTML content in textarea with the ID='mytextarea'");
+  var print_win = window.open("","wPrintWin","width=300,height=300,scrollbars=1,resizable=1");
+  var html = document.getElementById("mytextarea").value;
+
+  // Open a print window print_win
+  print_win.document.open();
+  print_win.document.write(html);
+  print_win.document.close();
+  print_win.focus();
+  print_win.print();
+  print_win.close();
+}
+```
+
+
 ### HTML Content of Printer Window
-The following file shows the content of `printwindow.html`:
+The following file shows the content of `print_win_css.html`:
 ```html
 <html>
   <link href="css/print.css" rel="stylesheet">
   <head>
     <title>
-      Printer Window
+      Printer Window CSS
     </title>
   </head>
   <body>
