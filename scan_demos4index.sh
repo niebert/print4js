@@ -45,13 +45,18 @@ filepath="$ROOT"
 			then
 			echo "- WARNING: Ignore self-reference to 'index.html' file for $OUTPUT"
   		else
+        if [ "$file" = "print_win.html" ]
+  			then
+  			echo "- WARNING: Ignore 'print_win.html' file for $OUTPUT"
+    		else
     	   	title=`cat $i | $SED_CMD -n 's/<title>\(.*\)<\/title>/\1/Ip' | $SED_CMD -e 's/^[ \t]*//'`
         	## GNU: cat docs/index.html | sed -n 's/<title>\(.*\)<\/title>/\1/Ip'`
         	## OSX: cat docs/index.html | gsed -n 's/<title>\(.*\)<\/title>/\1/Ip'`
         	echo "- FILE:  '$file'"
         	echo "  TITLE: '$title' "
-  			echo "    <LI><a href=\"$file\">$title</a></LI>" >> $OUTPUT
+  			  echo "    <LI><a href=\"$file\">$title</a></LI>" >> $OUTPUT
         fi
+      fi
   	done
     echo "  </UL>" >> $OUTPUT
     echo "  <HR>" >> $OUTPUT
