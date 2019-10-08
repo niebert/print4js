@@ -47,7 +47,7 @@
     "start": "webpack-dev-server --public http://localhost:8080/test/manual --open"
   },
   "build": {
-    "readme": "README_build.md",
+    "readme": "README.md",
     "html": "docs/demo7_print_handlebars4print.html",
     "css": "docs/css/print4js.css",
     "htmlsrc": "docs/index_src_libs.html"
