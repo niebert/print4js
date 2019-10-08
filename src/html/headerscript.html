@@ -1,36 +1,6 @@
 <!-- BEGIN:   src/html/headerscript.html -->
-  <script src="js/loadfile4dom.js"></script>
 
   <script language="javascript">
-      var lf4d = new LoadFile4DOM();
-      var options = {
-        "debug": false
-      };
-      lf4d.init(document,options);
-      //---------------------------------------------------
-      //----- Create a new Loader with ID "myjsonfile" ----
-      //---------------------------------------------------
-      // we load the JSON as text file without parsing.
-      // the
-      var txtfile = lf4d.get_loader_options("myjsonfile","json");
-      // Define what to do with the loaded data
-      console.log("txtfile="+JSON.stringify(txtfile,null,4));
-      txtfile.onload = function (data,err) {
-        if (err) {
-          // do something on error, perr contains error message
-          console.error(err);
-          alert("ERROR: Parse JSON was not successful - " + err);
-        } else {
-          // do something with the file content in data e.g. store  in a HTML textarea (e.g. <textarea id="mytextarea" ...>
-          console.log("CALL: txtfile.onload() store the JSON as text file copy into textarea 'jsonstring'");
-          // data is now a JSON file that will be converted into string with indent 4 and stored into textarea.
-          window.document.getElementById("jsonstring").value = JSON.stringify(data,null,4);
-        }
-      };
-      // create the loader txtfile
-      lf4d.create_load_dialog(txtfile);
-      //-----------------------------------------------
-
 
   //--- Handlebars4Code: see https://www.github.com/niebert/HandleBars4Code ---
   function el(pID) {
@@ -63,5 +33,120 @@
     el("tTemplate").value = vDataJSON.tpl[pTplID];
   }
 
+
+
+        function get_source(pID,pTemplate,pLanguage) {
+            var vLanguage = pLanguage || "javascript";
+            var vSource = "Undefined source in node '" + pID + "'";
+            var vNode = document.getElementById(pID);
+            if (vNode) {
+              vSource = vNode.value;
+              //vSource = hljs.highlight('javascript',vSource).value;
+              //console.log("CODE: "+vSource);
+              var template = "Undefined Template for ___LANGUAGE___\nCODE: ___CODE___";
+              if (pTemplate) {
+                console.log("pTemplate defined in get_source()");
+                template = pTemplate;
+              } else {
+                if (vDataJSON.hasOwnProperty("tpl")) {
+                  if (vDataJSON.tpl.hasOwnProperty("print")) {
+                    template = vDataJSON.tpl.print;
+                  } else {
+                    console.error("TEMPLATE: 'print' undefined in vDataJSON.tpl");
+                  }
+                } else {
+                  console.error("TEMPLATE: 'tpl' undefined in vDataJSON");
+                };
+              }
+              //alert("TEMPLATE: " + template);
+              vSource = replaceString(template,"___CODE___",vSource);
+              vSource = replaceString(vSource,"___LANGUAGE___",vLanguage);
+              console.log("TEMPLATE: " + template);
+            //alert("SOURCE: " + vSource);
+
+            } else {
+              console.error("DOM node with ID='" + pID + "' undefined!");
+            };
+            return vSource
+          }
+
+          function escape_html(pHTML) {
+            pHTML = pHTML.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+            return pHTML
+          }
+
+          var print_win = null;
+
+          function print_close_win() {
+            print_win.focus();
+            print_win.print();
+            //print_win.close();
+          }
+
+          function printTextArea(pID,pLanguage) {
+            console.log("Print HTML content in DIV element with the ID='" + pID + "'");
+            print_win = window.open("","wPrintWin","width=600,height=300,scrollbars=1,resizable=1");
+            var code = get_source(pID,vDataJSON.tpl.print,pLanguage);
+            // Open a print window print_win
+            print_win.document.open();
+            print_win.document.write(code);
+            print_win.document.close();
+            setTimeout(print_close_win,200);
+
+          }
+
+          function previewTextArea(pID,pLanguage) {
+            console.log("Preview HTML content in DIV element with the ID='" + pID + "'");
+            var preview_win = window.open("","wPreviewtWin","width=600,height=400,toolbar=yes,location=yes,status=yes,menubar=yes,scrollbars=yes,resizable=yes");
+            var code = get_source(pID,vDataJSON.tpl.preview,pLanguage);
+            // Open a print window print_win
+            preview_win.document.open();
+            preview_win.document.write(code);
+            preview_win.document.close();
+            preview_win.focus();
+        }
+
+        function print_code(pTemplateID) {
+          var vID = "output";
+          switch (pTemplateID) {
+            case "javascript":
+              // print generated output with javascript highlighting
+              console.log("PRINT: " + pTemplateID);
+              printTextArea(vID,"javascript")
+            break;
+            case "docu4github":
+              // print generated output with markdown syntax highlighting
+              console.log("PRINT: " + pTemplateID+" - markdown syntax");
+              printTextArea(vID,"markdown")
+            break;
+            default:
+              console.warn("WARNING PRINT: " + pTemplateID+ " undefined!");
+
+          }
+        }
+
+        function preview_code(pTemplateID) {
+          var vID = "output";
+          switch (pTemplateID) {
+            case "javascript":
+              // preview generated output with javascript highlighting
+              console.log("PREVIEW: " + pTemplateID);
+              previewTextArea(vID,"javascript")
+            break;
+            case "docu4github":
+              // preview generated output with markdown syntax highlighting
+              console.log("PREVIEW: " + pTemplateID);
+              previewTextArea(vID,"markdown")
+            break;
+            default:
+              console.warn("WARNING PREVIEW: " + pTemplateID+ " undefined!");
+          }
+        }
+
 </script>
+<!-- Load the Print and Preview Templates in folder "tpl/" -->
+<script src="tpl/preview_tpl.js"></script>
+<script src="tpl/print_tpl.js"></script>
+<script src="tpl/html_tpl.js"></script>
+
 <!-- END:   src/html/headerscript.html -->

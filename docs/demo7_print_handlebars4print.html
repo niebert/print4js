@@ -1,0 +1,293 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+  <meta http-equiv="content-language" content="de">
+  <meta http-equiv="desktop-type" content="tasks">
+<!-- END: src/html/header.html -->
+<!-- BEGIN: src/html/title.html -->
+<title>Demo 7: Print JSON with Handlebars Template Engine</title>
+<link href="css/main.css" rel="stylesheet">
+<meta http-equiv="author" content="Engelbert Niehaus">
+<!-- END: src/html/title.html -->
+<!-- BEGIN: src/html/datajson.html -->
+  <script language="javascript">
+   // vDataJSON is the main JSON storage for the privacy friendly WebApp
+   // File Loaded into vDataJSON by script tag
+   var vDataJSON = {};
+   vDataJSON.tpl = {
+     "preview": "Preview Template undefined\n___CODE___",
+     "print": "Print Template undefined\n___CODE___",
+     "html": "HTML Template undefined\n___CODE___"
+   };
+   /* TEMPLATES
+   vDataJSON.tpl contains the following templates:
+     * vDataJSON.tpl["javascript"] File: tpl/javascript_tpl.js
+       for creating the the Source Code for the UML class in javascript
+     * vDataJSON.tpl["docu4github"] File: tpl/docu4github_tpl.js
+       for creating the GitHub documentation from the UML source of the class
+   */
+
+   vDataJSON.out = {};
+   /* HANDLEBARS COMPILERS
+   vDataJSON.tpl contains the Handlebars compilers:
+     * vDataJSON.out["javascript"] Compiler for template: tpl/javascript_tpl.js
+       This compiler is used in the compileCode() method
+       var mySource = vJSONEditor.compileCode.javascript(pJSON)
+       creates the source code for the UML class in javascript
+     * vDataJSON.out["docu4github"] Compiler for template: tpl/docu4github_tpl.js
+       This compiler is used in the compileCode() method
+       var mySource = vJSONEditor.compileCode.docu4github(pJSON)
+   */
+  </script>
+  <script src="js/string.js"></script>
+
+  <!-- Code for HighlightJS Library -->
+  <link rel="stylesheet" href="css/highlight_css/xcode.css">
+  <script src="js/highlight.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+<!-- END: src/html/datajson.html -->
+<!-- BEGIN: src/html/headerlibs.html -->
+
+  <!-- ### Handelbars4Code Init JSON  ############### -->
+  <script src="db/umljs.js"></script>
+  <!-- ### HANDLEBARS TEMPLATE  #####################
+  Template ID: "javascript"
+  Template: vDataJSON["tpl"]["javascript"]
+  -->
+  <script src="tpl/javascript_tpl.js"></script>
+  <!-- ### COMPILE HANDLEBARS TEMPLATES  ############
+  Template ID: "docu4github"
+  Template: vDataJSON["tpl"]["docu4github"]
+  -->
+  <script src="tpl/docu4github_tpl.js"></script>
+  <script src="js/handlebars4code.js"></script>
+
+<!-- END: src/html/headerlibs.html -->
+<!-- BEGIN:   src/html/headerscript.html -->
+
+  <script language="javascript">
+
+  //--- Handlebars4Code: see https://www.github.com/niebert/HandleBars4Code ---
+  function el(pID) {
+    return document.getElementById(pID);
+  }
+
+  function convert(pTplID)
+  {
+    var vTplID = pTplID || "javascript";
+    var vJSON;
+  	var vString = document.fconvert.jsonstring.value;
+    if(vString) {
+      try {
+          vJSON = JSON.parse(vString);
+      } catch(e) {
+          alert("JSON Parsing Error: "+e); // error in the above string (in this case, yes)!
+      }
+      if (vJSON)  {
+        setTemplate(pTplID);
+        document.fconvert.output.value = Handlebars4Code.compile_code(vTplID,vJSON);
+
+      } else {
+        alert("ERROR: Could not parse JSON");
+      }
+    }
+  }
+
+  function setTemplate(pTplID) {
+    //convert(pTpl);
+    el("tTemplate").value = vDataJSON.tpl[pTplID];
+  }
+
+
+
+        function get_source(pID,pTemplate,pLanguage) {
+            var vLanguage = pLanguage || "javascript";
+            var vSource = "Undefined source in node '" + pID + "'";
+            var vNode = document.getElementById(pID);
+            if (vNode) {
+              vSource = vNode.value;
+              //vSource = hljs.highlight('javascript',vSource).value;
+              //console.log("CODE: "+vSource);
+              var template = "Undefined Template for ___LANGUAGE___\nCODE: ___CODE___";
+              if (pTemplate) {
+                console.log("pTemplate defined in get_source()");
+                template = pTemplate;
+              } else {
+                if (vDataJSON.hasOwnProperty("tpl")) {
+                  if (vDataJSON.tpl.hasOwnProperty("print")) {
+                    template = vDataJSON.tpl.print;
+                  } else {
+                    console.error("TEMPLATE: 'print' undefined in vDataJSON.tpl");
+                  }
+                } else {
+                  console.error("TEMPLATE: 'tpl' undefined in vDataJSON");
+                };
+              }
+              //alert("TEMPLATE: " + template);
+              vSource = replaceString(template,"___CODE___",vSource);
+              vSource = replaceString(vSource,"___LANGUAGE___",vLanguage);
+              console.log("TEMPLATE: " + template);
+            //alert("SOURCE: " + vSource);
+
+            } else {
+              console.error("DOM node with ID='" + pID + "' undefined!");
+            };
+            return vSource
+          }
+
+          function escape_html(pHTML) {
+            pHTML = pHTML.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+            return pHTML
+          }
+
+          var print_win = null;
+
+          function print_close_win() {
+            print_win.focus();
+            print_win.print();
+            //print_win.close();
+          }
+
+          function printTextArea(pID,pLanguage) {
+            console.log("Print HTML content in DIV element with the ID='" + pID + "'");
+            print_win = window.open("","wPrintWin","width=600,height=300,scrollbars=1,resizable=1");
+            var code = get_source(pID,vDataJSON.tpl.print,pLanguage);
+            // Open a print window print_win
+            print_win.document.open();
+            print_win.document.write(code);
+            print_win.document.close();
+            setTimeout(print_close_win,200);
+
+          }
+
+          function previewTextArea(pID,pLanguage) {
+            console.log("Preview HTML content in DIV element with the ID='" + pID + "'");
+            var preview_win = window.open("","wPreviewtWin","width=600,height=400,toolbar=yes,location=yes,status=yes,menubar=yes,scrollbars=yes,resizable=yes");
+            var code = get_source(pID,vDataJSON.tpl.preview,pLanguage);
+            // Open a print window print_win
+            preview_win.document.open();
+            preview_win.document.write(code);
+            preview_win.document.close();
+            preview_win.focus();
+        }
+
+        function print_code(pTemplateID) {
+          var vID = "output";
+          switch (pTemplateID) {
+            case "javascript":
+              // print generated output with javascript highlighting
+              console.log("PRINT: " + pTemplateID);
+              printTextArea(vID,"javascript")
+            break;
+            case "docu4github":
+              // print generated output with markdown syntax highlighting
+              console.log("PRINT: " + pTemplateID+" - markdown syntax");
+              printTextArea(vID,"markdown")
+            break;
+            default:
+              console.warn("WARNING PRINT: " + pTemplateID+ " undefined!");
+
+          }
+        }
+
+        function preview_code(pTemplateID) {
+          var vID = "output";
+          switch (pTemplateID) {
+            case "javascript":
+              // preview generated output with javascript highlighting
+              console.log("PREVIEW: " + pTemplateID);
+              previewTextArea(vID,"javascript")
+            break;
+            case "docu4github":
+              // preview generated output with markdown syntax highlighting
+              console.log("PREVIEW: " + pTemplateID);
+              previewTextArea(vID,"markdown")
+            break;
+            default:
+              console.warn("WARNING PREVIEW: " + pTemplateID+ " undefined!");
+          }
+        }
+
+</script>
+<!-- Load the Print and Preview Templates in folder "tpl/" -->
+<script src="tpl/preview_tpl.js"></script>
+<script src="tpl/print_tpl.js"></script>
+<script src="tpl/html_tpl.js"></script>
+
+<!-- END:   src/html/headerscript.html -->
+
+</head>
+<body>
+
+  <h1>Print4JS - Demo 7: Print with Handlebar4Code</h1>
+  <h4>
+    Demo extends the <a href="https://niebert.github.io/Handlebars4Code" target="_blank">Handlebars4Code demo</a> with <a href="https://www.gitlab.com/niehausbert/loadfile4dom" target="_blank">Print4JS</a>. With the <a href="#" onclick="lf4d.open_dialog('txtfile');return false">Load JSON Button</a> users can upload a JSON Source into the textarea JSON.
+    JSON as input for <tt>Handelbars4Code</tt>
+    was generated with <a href="https://niebert.github.io/ClassEditorUML" target="_blank">ClassEditorUML</a>.
+
+    The JSON file is used together with a template to generate output files with <a href="https://www.github.com/niebert/Handlebars4Code" target="_blank">Handlebars4Code</a>.
+    With the select box you can apply different templates to the source JSON file.
+    If you want to create your own JSON editor, you can use <a href="https://niebert.github.io/JSON2Schema" target="_blank"> JSON2Schema</a>.
+  </h4>
+
+<hr>
+<!-- END: src/html/bodyheader.html -->
+
+The library <tt>Print4JS</tt> is a A tiny javascript library to help printing from the web.. 
+The source code of  Print4JS can be downloaded as <a href="https://www.github.com/niebert/print4js/archive/master.zip"  target="_blank">ZIP-file print4js.zip</a>
+
+<!-- BEGIN: src/html/body.html -->
+
+<form name="fconvert">
+  <hr>
+  <b>JSON Input:</b><br>
+<textarea id="jsonstring" name="jsonstring" cols="125" rows="10">This is a
+</textarea><br>
+<b>Output of Print4JS</b>
+<select id="sTemplate" onchange="setTemplate(this.value)">
+         <option value="javascript" selected="selected">Javascript Code</option>
+         <option value="docu4github">Documentation for GitHub</option>
+</select>
+<button onclick="convert(el('sTemplate').value);return false">Create Output</button>
+ -
+<button onclick="preview_code(el('sTemplate').value);return false">Preview Output</button>
+<button onclick="print_code(el('sTemplate').value);return false">Print Output</button>
+<br>
+
+<textarea id="output" name="output" cols="125" rows="10"></textarea><br>
+<br>
+
+<hr>
+<b>Print4JS</b> uses the following Template for <a href="https://www.github.com/niebert/Handlebars4Code" target="_blank">Handlebars</a> (readonly)<br>
+<textarea id="tTemplate" name="tTemplate" cols="125" rows="10" readonly></textarea><br>
+</form>
+<!-- END: src/html/body.html -->
+<!-- BEGIN: src/html/bodytail.html -->
+<center>
+  <b>
+    <a href="index.html">&lt;&lt; Demo Applications with Print4JS</a>
+  </b>
+</center>
+
+<!-- END: src/html/bodytail.html -->
+
+	   <!-- BEGIN: src/html_tail.html -->
+	   <center style="font-size: 10px;">
+			  <a href="https://www.github.com/niebert/print4js" target="_blank"> Git Sources Print4JS</a> - <a href="https://www.github.com/niebert/print4js/archive/master.zip"  target="_blank">Download Print4JS ZIP</a>
+			  <br>
+			  Version: 1.0.61 Date: 2019/10/08 23:21:08 Author: Rodrigo Vieira <rodrigo@crabbly.com>
+	   </center>
+     <!-- END:  src/html_tail.html -->
+
+	<script language="javascript">
+    el("jsonstring").value = JSON.stringify(vDataJSON["umljs"],null,2);
+
+    Handlebars4Code.create_compiler(vDataJSON.tpl);
+    vDataJSON.out = Handlebars4Code.get_compiler();
+
+
+</script>
+
+  </body>
+</html>

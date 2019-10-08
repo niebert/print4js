@@ -12,8 +12,8 @@
         // tpl contains the template for code generation see "tpl/code_highlight_tpl.js"
         var vDataJSON = {
               "tpl": {
-                "preview": "Preview Template undefined\n___CODE___",
-                "print": "Print Template undefined\n___CODE___",
+                "preview": "Preview ___LANGUAGE___-Template undefined\n___CODE___",
+                "print": "Print ___LANGUAGE___-Template undefined\n___CODE___",
                 "html": "HTML Template undefined\n___CODE___"
               }
             };
@@ -52,6 +52,7 @@
             console.log("TEMPLATE: " + template);
             //alert("TEMPLATE: " + template);
             vSource = replaceString(template,"___CODE___",vSource);
+            vSource = replaceString(template,"___LANGUAGE___","javascript");
             //alert("SOURCE: " + vSource);
 
           } else {

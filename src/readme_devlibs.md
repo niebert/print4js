@@ -9,7 +9,7 @@ These libraries are not included in `print4js.js`, but e.g. are required in `bui
 * Lib: `@babel/core` Version: `7.4.5`
 * Lib: `@babel/preset-env` Version: `7.4.5`
 * Lib: `babel-loader` Version: `8.0.6`
-* Lib: `build4code` Version: `^0.3.7`
+* Lib: `build4code` Version: `^0.3.13`
 * Lib: `coveralls` Version: `3.0.4`
 * Lib: `css-loader` Version: `2.1.1`
 * Lib: `istanbul-instrumenter-loader` Version: `3.0.1`

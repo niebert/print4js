@@ -34,12 +34,14 @@ The following table of contents is generated with `node doctoc README.md`.
 ## Demo Files Print4JS
 Demo files scanned with `scan_demos4readme.sh` - Last Update: 08.10.2019
 Generated file `./src/readme/demos.md` was included into `README.md` after calling `npm run build` 
-* [Demo 1: Print Content in Textarea
-Print4JS Demo](https://niebert.gitlab.io/print4js/demo1_load_into_textarea.html)
+* [Demo 1: Print Content in Textarea](https://niebert.gitlab.io/print4js/demo1_load_into_textarea.html)
 * [Demo 2: Print Code](https://niebert.gitlab.io/print4js/demo2_print_code.html)
-* [Demo 2: Print Code Highlight](https://niebert.gitlab.io/print4js/demo3_print_code_highlight.html)
-* [Demo 4: Print PDF with html2pdf](https://niebert.gitlab.io/print4js/demo4_print_html2pdf.html)
-* [Demo 8: Print JSON with Handlebars Template Engine](https://niebert.gitlab.io/print4js/demo8_print_json4handlebars.html)
+* [Demo 3: Print Code with Print Window ](https://niebert.gitlab.io/print4js/demo3_print_win_code.html)
+* [Demo 4: Print Code with Syntax Highlighting](https://niebert.gitlab.io/print4js/demo4_print_code_highlight.html)
+* [Demo 1: Print Content in Textarea](https://niebert.gitlab.io/print4js/demo5_print_js.html)
+* [Demo 6: Print PDF with html2pdf](https://niebert.gitlab.io/print4js/demo6_print_html2pdf.html)
+* [Demo 7: Print JSON with Handlebars Template Engine](https://niebert.gitlab.io/print4js/demo7_print_handlebars4print.html)
+* [Print Window for Code with highlight.js](https://niebert.gitlab.io/print4js/print_win_code.html)
 For further information see [Wikiversity](https://en.wikiversity.org/wiki/AppLSAC)
  
 
@@ -539,7 +541,7 @@ These libraries are not included in `print4js.js`, but e.g. are required in `bui
 * Lib: `@babel/core` Version: `7.4.5`
 * Lib: `@babel/preset-env` Version: `7.4.5`
 * Lib: `babel-loader` Version: `8.0.6`
-* Lib: `build4code` Version: `^0.3.7`
+* Lib: `build4code` Version: `^0.3.13`
 * Lib: `coveralls` Version: `3.0.4`
 * Lib: `css-loader` Version: `2.1.1`
 * Lib: `istanbul-instrumenter-loader` Version: `3.0.1`
@@ -565,10 +567,10 @@ These libraries are not included in `print4js.js`, but e.g. are required in `bui
 ## NPM Library Information
 * Exported Module Variable: `Print4JS`
 * Package:  `print4js`
-* Version:  `1.0.61`   (last build 2019/10/08 10:47:26)
+* Version:  `1.0.61`   (last build 2019/10/08 23:21:08)
 * Homepage: `http://printjs.crabbly.com`
 * License:  MIT
-* Date:     2019/10/08 10:47:26
+* Date:     2019/10/08 23:21:08
 * Require Module with:
 ```javascript
     const vPrint4JS = require('print4js');

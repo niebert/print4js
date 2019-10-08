@@ -1,6 +1,7 @@
 
+<!-- BEGIN: src/html/body.html -->
+
 <form name="fconvert">
-  <button onclick="lf4d.open_dialog('myjsonfile');return false">Load JSON</button>
   <hr>
   <b>JSON Input:</b><br>
 <textarea id="jsonstring" name="jsonstring" cols="125" rows="10">This is a
@@ -10,12 +11,17 @@
          <option value="javascript" selected="selected">Javascript Code</option>
          <option value="docu4github">Documentation for GitHub</option>
 </select>
-<input name="bConvert" value=" Create Output " onclick="convert(el('sTemplate').value);return false" type="button">
+<button onclick="convert(el('sTemplate').value);return false">Create Output</button>
+ -
+<button onclick="preview_code(el('sTemplate').value);return false">Preview Output</button>
+<button onclick="print_code(el('sTemplate').value);return false">Print Output</button>
 <br>
 
 <textarea id="output" name="output" cols="125" rows="10"></textarea><br>
+<br>
 
 <hr>
 <b>___PKG_EXPORTVAR___</b> uses the following Template for <a href="https://www.github.com/niebert/Handlebars4Code" target="_blank">Handlebars</a> (readonly)<br>
 <textarea id="tTemplate" name="tTemplate" cols="125" rows="10" readonly></textarea><br>
 </form>
+<!-- END: src/html/body.html -->

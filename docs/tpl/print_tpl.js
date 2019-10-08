@@ -10,7 +10,7 @@ vDataJSON.tpl.print = `
     <script>hljs.initHighlightingOnLoad();</script>
   </head>
   <body id="print_body">
-    <pre><code class="javascript">___CODE___</code></pre>
+    <pre><code class="___LANGUAGE___">___CODE___</code></pre>
   </body>
 </html>
 `;

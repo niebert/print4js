@@ -3,7 +3,11 @@
    // vDataJSON is the main JSON storage for the privacy friendly WebApp
    // File Loaded into vDataJSON by script tag
    var vDataJSON = {};
-   vDataJSON.tpl = {};
+   vDataJSON.tpl = {
+     "preview": "Preview Template undefined\n___CODE___",
+     "print": "Print Template undefined\n___CODE___",
+     "html": "HTML Template undefined\n___CODE___"
+   };
    /* TEMPLATES
    vDataJSON.tpl contains the following templates:
      * vDataJSON.tpl["javascript"] File: tpl/javascript_tpl.js
@@ -24,4 +28,11 @@
        var mySource = vJSONEditor.compileCode.docu4github(pJSON)
    */
   </script>
+  <script src="js/string.js"></script>
+
+  <!-- Code for HighlightJS Library -->
+  <link rel="stylesheet" href="css/highlight_css/xcode.css">
+  <script src="js/highlight.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
 <!-- END: src/html/datajson.html -->

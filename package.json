@@ -13,7 +13,7 @@
     "@babel/core": "7.4.5",
     "@babel/preset-env": "7.4.5",
     "babel-loader": "8.0.6",
-    "build4code": "^0.3.7",
+    "build4code": "^0.3.13",
     "coveralls": "3.0.4",
     "css-loader": "2.1.1",
     "istanbul-instrumenter-loader": "3.0.1",
@@ -48,11 +48,16 @@
   },
   "build": {
     "readme": "README_build.md",
-    "html": "docs/demo8_print_json4handlebars.html",
+    "html": "docs/demo7_print_handlebars4print.html",
     "css": "docs/css/print4js.css",
     "htmlsrc": "docs/index_src_libs.html"
   },
   "author": "Rodrigo Vieira <rodrigo@crabbly.com>",
+  "gituser": "niebert",
+  "gitdomain": "github",
+  "bugs": {
+    "url": "https://www.github.com/niebert/print4js/issues"
+  },
   "standard": {
     "ignore": [
       "/dist/print.js"
