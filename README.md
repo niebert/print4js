@@ -62,16 +62,16 @@ The following table of contents is generated with `node doctoc README.md`.
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
  
 ## Demo Files Print4JS
-Demo files scanned with `scan_demos4readme.sh` - Last Update: 08.10.2019
+Demo files scanned with `scan_demos4readme.sh` - Last Update: 09.10.2019
 Generated file `./src/readme/demos.md` was included into `README.md` after calling `npm run build` 
-* [Demo 1: Print Content in Textarea](https://niebert.gitlab.io/print4js/demo1_load_into_textarea.html)
-* [Demo 2: Print Code](https://niebert.gitlab.io/print4js/demo2_print_code.html)
-* [Demo 3: Print Code with Print Window ](https://niebert.gitlab.io/print4js/demo3_print_win_code.html)
-* [Demo 4: Print Code with Syntax Highlighting](https://niebert.gitlab.io/print4js/demo4_print_code_highlight.html)
-* [Demo 1: Print Content in Textarea](https://niebert.gitlab.io/print4js/demo5_print_js.html)
-* [Demo 6: Print PDF with html2pdf](https://niebert.gitlab.io/print4js/demo6_print_html2pdf.html)
-* [Demo 7: Print JSON with Handlebars Template Engine](https://niebert.gitlab.io/print4js/demo7_print_handlebars4print.html)
-* [Print Window for Code with highlight.js](https://niebert.gitlab.io/print4js/print_win_code.html)
+* [Demo 1: Print Content in Textarea](https://niebert.github.io/print4js/demo1_load_into_textarea.html)
+* [Demo 2: Print Code](https://niebert.github.io/print4js/demo2_print_code.html)
+* [Demo 3: Print Code with Print Window ](https://niebert.github.io/print4js/demo3_print_win_code.html)
+* [Demo 4: Print Code with Syntax Highlighting](https://niebert.github.io/print4js/demo4_print_code_highlight.html)
+* [Demo 1: Print Content in Textarea](https://niebert.github.io/print4js/demo5_print_js.html)
+* [Demo 6: Print PDF with html2pdf](https://niebert.github.io/print4js/demo6_print_html2pdf.html)
+* [Demo 7: Print JSON with Handlebars Template Engine](https://niebert.github.io/print4js/demo7_print_handlebars4print.html)
+* [Print Window for Code with highlight.js](https://niebert.github.io/print4js/print_win_code.html)
 For further information see [Wikiversity](https://en.wikiversity.org/wiki/AppLSAC)
  
 
@@ -363,10 +363,10 @@ These libraries are not included in `print4js.js`, but e.g. are required in `bui
 ## NPM Library Information
 * Exported Module Variable: `Print4JS`
 * Package:  `print4js`
-* Version:  `1.0.61`   (last build 2019/10/08 23:40:47)
+* Version:  `1.0.61`   (last build 2019/10/09 0:02:16)
 * Homepage: `http://printjs.crabbly.com`
 * License:  MIT
-* Date:     2019/10/08 23:40:47
+* Date:     2019/10/09 0:02:16
 * Require Module with:
 ```javascript
     const vPrint4JS = require('print4js');

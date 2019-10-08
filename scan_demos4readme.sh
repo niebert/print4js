@@ -2,8 +2,12 @@
 
 SED_CMD="sed"
 ROOT="./docs/"
-MODULE="Print4JS"
-DOMAIN="https://niebert.gitlab.io/print4js/"
+MODULE="print4js"
+MODNAME="Print4JS"
+#DOMAIN="https://niehausbert.gitlab.io/$MODULE/"
+DOMAIN="https://niebert.github.io/$MODULE/"
+#REPO="https://www.gitlab.com/niehausbert/$MODULE"
+REPO="https://www.github.com/niebert/$MODULE"
 WIKIVERSITY="https://en.wikiversity.org/wiki/AppLSAC"
 OUTPUT="./src/readme/demos.md"
 NOW=$(date +"%d.%m.%Y")
@@ -12,7 +16,7 @@ NOW=$(date +"%d.%m.%Y")
 ### OSX
 SED_CMD="gsed"
 echo " " > $OUTPUT
-echo "## Demo Files $MODULE" >> $OUTPUT
+echo "## Demo Files $MODNAME" >> $OUTPUT
 echo "Demo files scanned with \`scan_demos4readme.sh\` - Last Update: ${NOW}" >> $OUTPUT
 echo "Generated file \`${OUTPUT}\` was included into \`README.md\` after calling \`npm run build\` " >> $OUTPUT
 i=0
