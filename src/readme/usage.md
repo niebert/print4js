@@ -1,281 +1,260 @@
-<!DOCTYPE html>
-<html class="devise-layout-html">
-<head prefix="og: http://ogp.me/ns#">
-<meta charset="utf-8">
-<link href="https://assets.gitlab-static.net" rel="dns-prefetch">
-<link crossorigin="" href="https://assets.gitlab-static.net" rel="preconnnect">
-<meta content="IE=edge" http-equiv="X-UA-Compatible">
-<meta content="object" property="og:type">
-<meta content="GitLab" property="og:site_name">
-<meta content="Sign in" property="og:title">
-<meta content="GitLab.com" property="og:description">
-<meta content="https://assets.gitlab-static.net/assets/gitlab_logo-7ae504fe4f68fdebb3c2034e36621930cd36ea87924c11ff65dbcb8ed50dca58.png" property="og:image">
-<meta content="64" property="og:image:width">
-<meta content="64" property="og:image:height">
-<meta content="https://gitlab.com/users/sign_in" property="og:url">
-<meta content="summary" property="twitter:card">
-<meta content="Sign in" property="twitter:title">
-<meta content="GitLab.com" property="twitter:description">
-<meta content="https://assets.gitlab-static.net/assets/gitlab_logo-7ae504fe4f68fdebb3c2034e36621930cd36ea87924c11ff65dbcb8ed50dca58.png" property="twitter:image">
+<!-- BEGIN: src/readme/usage.md -->
 
-<title>Sign in · GitLab</title>
-<meta content="GitLab.com" name="description">
-<link rel="shortcut icon" type="image/png" href="https://gitlab.com/assets/favicon-7901bd695fb93edb07975966062049829afb56cf11511236e61bcf425070e36e.png" id="favicon" data-original-href="https://gitlab.com/assets/favicon-7901bd695fb93edb07975966062049829afb56cf11511236e61bcf425070e36e.png" />
-<link rel="stylesheet" media="all" href="https://assets.gitlab-static.net/assets/application-1da73cad58989dc461966410eb529707f1e373c27ba32853a1f8e5613bb7dc7f.css" />
-<link rel="stylesheet" media="print" href="https://assets.gitlab-static.net/assets/print-74c3df10dad473d66660c828e3aa54ca3bfeac6d8bb708643331403fe7211e60.css" />
+## Quick Start for Library-Users
+Just copy the `docs/`-folder or rename to `myloadfile4dom` and adapt the examples to your needs.
+Check out the examples:
+* [Load file into textarea](https://niehausbert.gitlab.io/loadfile4dom/loadtextarea.html)
+* [Load files into ZIP](https://niehausbert.gitlab.io/loadfile4dom/upload2zip.html)
+* [Load Images into DOM and into ZIP](https://niehausbert.gitlab.io/loadfile4dom/loadimages.html)
+* [Load JSON into Template Engine Handlebars4Code](https://niehausbert.gitlab.io/loadfile4dom/handlebars4code.html)
+Check the javascript source in HTML file. [Download ZIP file of LoadFile4DOM](https://gitlab.com/niehausbert/loadfile4dom/-/archive/master/loadfile4dom-master.zip)
 
+## Usage
+You can have one or more `LoadFile4DOM` nodes in your webbased application. The following code shows how to create `LoadFile4DOM` node (see [Demos Examples](https://niehausbert.gitlab.io/loadfile4dom))
+```javascript
+var lf4d = new LoadFile4DOM();
+var options = {
+  "id4loadfile": "allmyloaddialogs"
+};
+lf4d.init(document,options);
+var txtfile = lf4dom.get_options("mytxtfile","all");
+// set the onload handler for the loaded files
+//txtfile.returntype = "file" and not "filehash" so data contains the textstring
+txtfile.onload = function (data,err) {
+  if (err) {
+    console.error(err);
+  } else {
+    // do something with the file content in data e.g. store  in a HTML textarea (e.g. <textarea id="mytextarea" ...>
+    document.getElementById("mytextarea").value = data.file;
+  }
+}
+lf4d.create_load_dialog(txtfile);
+```
+The Load Dialogs are created with the `onload` event handler in the body tag of your HTML file.
 
-<link rel="stylesheet" media="all" href="https://assets.gitlab-static.net/assets/highlight/themes/white-3144068cf4f603d290f553b653926358ddcd02493b9728f62417682657fc58c0.css" />
-<script nonce="rCy1O7dv1CtEIuL0vDH2Ag==">
-//<![CDATA[
-window.gon={};gon.api_version="v4";gon.default_avatar_url="https://assets.gitlab-static.net/assets/no_avatar-849f9c04a3a0d0cea2424ae97b27447dc64a7dbfae83c036c45b403392f0e8ba.png";gon.max_file_size=10;gon.asset_host="https://assets.gitlab-static.net";gon.webpack_public_path="https://assets.gitlab-static.net/assets/webpack/";gon.relative_url_root="";gon.shortcuts_path="/help/shortcuts";gon.user_color_scheme="white";gon.sentry_dsn="https://526a2f38a53d44e3a8e69bfa001d1e8b@sentry.gitlab.net/15";gon.sentry_environment=null;gon.gitlab_url="https://gitlab.com";gon.revision="f79c1794977";gon.gitlab_logo="https://assets.gitlab-static.net/assets/gitlab_logo-7ae504fe4f68fdebb3c2034e36621930cd36ea87924c11ff65dbcb8ed50dca58.png";gon.sprite_icons="https://gitlab.com/assets/icons-4e4ddd6727ec3b15b78b2b0b2af243cd5610247056df947952e93781e43f098c.svg";gon.sprite_file_icons="https://gitlab.com/assets/file_icons-7262fc6897e02f1ceaf8de43dc33afa5e4f9a2067f4f68ef77dcc87946575e9e.svg";gon.emoji_sprites_css_path="https://assets.gitlab-static.net/assets/emoji_sprites-289eccffb1183c188b630297431be837765d9ff4aed6130cf738586fb307c170.css";gon.test_env=false;gon.suggested_label_colors={"#0033CC":"UA blue","#428BCA":"Moderate blue","#44AD8E":"Lime green","#A8D695":"Feijoa","#5CB85C":"Slightly desaturated green","#69D100":"Bright green","#004E00":"Very dark lime green","#34495E":"Very dark desaturated blue","#7F8C8D":"Dark grayish cyan","#A295D6":"Slightly desaturated blue","#5843AD":"Dark moderate blue","#8E44AD":"Dark moderate violet","#FFECDB":"Very pale orange","#AD4363":"Dark moderate pink","#D10069":"Strong pink","#CC0033":"Strong red","#FF0000":"Pure red","#D9534F":"Soft red","#D1D100":"Strong yellow","#F0AD4E":"Soft orange","#AD8D43":"Dark moderate orange"};gon.first_day_of_week=0;gon.ee=true;gon.features={"suppressAjaxNavigationErrors":true,"privacyPolicyUpdateCallout":false};
-//]]>
+```html
+   <body onload="lf4d.create()">
+```
+
+Now you can define an `onclick` event in a button to open the load menu similar to the upload feature of web sites.
+```html
+<input type="button" onclick="lf4d.open_dialog('mytxtfile')" value="Load TXT File">
+```
+or with a `button`-tag with
+```html
+<button onclick="lf4d.open_dialog('myhtmlfile')"> Load HTML File</button>
+```
+Furthermore you can open the menu with an `onclick` event on a link by
+```html
+This is a <a href="#" onclick="lf4d.open_dialog('myhtmlfile')">link to open the menu</a> in a HTML file.
+```
+
+### File Extensions
+It is possible to set a mandatory file extension for the loaded files. This mandatory file extension will be checked for all loaded files. The following code creates a `DIV` tag in the DOM with the ID `allmyloaddialogs`. This ID can be used for debugging and learning about `LoadFile4DOM`, because by `document.getElementById('allmyloaddialogs')`  programmers can analyse what is injected in the DOM tree for the generated loaders (see [Demos Examples](https://niehausbert.gitlab.io/loadfile4dom)).
+
+In this example the file extensions can be set with `txtfile.file_extension = ".txt"` after generating the default options for a new text file loader with the ID `mytextfile`.
+
+```javascript
+//--- Create a LoadFile4DOM instance ---
+// you need one instance for all loaders
+var lf4d = new LoadFile4DOM();
+var options = {
+  "id4loadfile": "allmyloaddialogs"
+};
+lf4d.init(document,options);
+
+//-----------------------------------------------
+//----- Create a new Loader "mytxtfile" ---------
+//-----------------------------------------------
+var txtfile = lf4d.get_loader_options("mytxtfile","text");
+// set mandatory file extensions
+txtfile.file_extension = ".txt";
+// set the onload handler for the loaded files
+txtfile.onload = function (data,err) {
+  // define file handler
+
+}
+lf4d.create_load_dialog(txtfile);
+```
+Mandatory file extensions are helpful especially for `zip`-files:
+* [Geogebra files](https://www.geogebra.org) are `zip`-files and they have the file extension `.ggb`. The corresponding [MIME](https://en.wikipedia.org/wiki/Media_type) type for `ggb`-files is `application/vnd.geogebra.file`
+* [LibreOffice Writer files](https://www.libreoffice.org/discover/writer/) are `zip`-files and they have the file extension `.odt`. The corresponding [MIME](https://en.wikipedia.org/wiki/Media_type) type for `ODT` is
+`application/vnd.oasis.opendocument.text`
+
+The file extension check is implemented in the method `LoadFile4DOM.error_file_type()`.
+
+### Return Types
+The onload handler could get different processed JSON objects as return types.
+* `file` is
+  * just the text for file type `text`
+  * the parsed JSON for file type `json`
+  * binary version (blob) of loaded file
+* `filehash` contains also the filename if browser return the name of the file. This is not standard and might result in an unexpected behavior if not used in Firefox or Chrome. `filehash` return a hash with
+```javascript
+   data = {
+     "name": "myloadedfile.txt",
+     "file": "the content of the loaded text file",
+     "mime_type":"text/plain"
+   }
+```
+  * here the attribute `data.file` contains the text of file, or
+  * **Loader Type: `json`** `data.file` contains the parsed JSON for the loader file type `json`
+  * `data.file` contains the base64 content of loaded file
+  * `mime_type` contain the [MIME type of the file](https://en.wikipedia.org/wiki/Media_type)
+* `tag` as return type creates an image tag as string for the DOM that contain the image. This is applicable for filetype `image_thumb`.
+
+### Image Thumb
+The loader type `image_thumb` is appropriate for loading thumbnail images and return an image tag with the thumbnail size that can be appended to the DOM. Append the image tag to DOM uses the returned a string for the tag to append to the `innerHTML` of a DIV element (see [Demos Examples](https://niehausbert.gitlab.io/loadfile4dom)).
+
+For the following example we assume that the following `div` element with the id `outlist` is located somewhere in the document body of the DOM (Document Object Model) of the browser document (i.e. loaded HTML page).
+```html
+<div id="outlist"></div>
+```
+The following Loader of the type `image_thumb`. The default image size of the thumbnail is defined by `file2image.width = 200` to a width of 200 pixel.
+```javascript
+//--- Create a LoadFile4DOM instance ---
+// you need one instance for all loaders
+var lf4d = new LoadFile4DOM();
+var options = {
+  "debug": false // if true, it will show the hidden <input type="file" ...> loaders in DOM
+};
+lf4d.init(document,options);
+//-----------------------------------------------
+//----- Create a new Loader "file2image" --------
+//-----------------------------------------------
+var file2image = lf4d.get_loader_options("addfile2image","imagethumb");
+file2image.returntype = "tag";
+file2image.width = 200;
+// Define what to do with the loaded data
+file2image.onload = function (data,err) {
+  if (err) {
+    // do something on error, err contains error message
+    console.error(err);
+  } else {
+    // do something with the file content in data e.g. store  in a HTML textarea (e.g. <textarea id="mytextarea" ...>
+    console.log("CALL: file2image.onload()");
+    var vNode = document.getElementById("outlist");
+    if (vNode) {
+      vNode.innerHTML = vNode.innerHTML + "<br>" + data.tag + " ";
+    } else {
+      console.error("ERROR: DOM Element 'outlist' does not exist!");
+    }
+
+  }
+};
+// create the load dialog 'file2image'
+lf4d.create_load_dialog(file2image);
+```
+
+### Format of the Returned Filehash
+The `data` hash contains the following properties:
+```javascript
+data = {
+  "name": "myimage.png",
+  "file": "uASo3hSODBFl9fsdf...",
+  "mime_type": "image/png",
+  "tag": "<img src='....' width='200'>"
+};
+```
+The `data.file` attribute can be used to store the images into ZIP. The main property to display the image is the `data.tag` attribute.   
+* The property `data.name` contains the filename of the loaded file if the browser provides the filename (without path) of the loaded file.
+* The property `data.file` contains the base64 encoded content of the image
+* The property `data.mime_type` contains the [MIME](https://en.wikipedia.org/wiki/Media_type) type of the image.
+* The property `data.tag` contains the HTML tag of the thumbnail image.
+
+### Load Images
+The loader of type `image` create an `new Image()` object and populates the attributes `width`, `height` (see [Demos Examples](https://niehausbert.gitlab.io/loadfile4dom)).
+
+```javascript
+img = new Image();
+// populate i...
+
+data = {
+  "name": "myimage1.png",
+  "file": "base64,uASo3hSODBFl9fsdf...",,
+  "mime_type": "image/png",
+  "img": "<img src='....' width='640'>"
+};
+```
+
+### Load Files into JSON/Javascript
+If you want to create digital product that is dependent on binary data, you can check the example [Load Files into JSON](https://niehausbert.gitlab.io/loadfile4dom/files2jslib.html). The [Demo](https://niehausbert.gitlab.io/loadfile4dom/files2jslib.html) creates a JSON file or Javascript file with all the loaded files the filenames and the MIME types.
+
+E.g. if you want to create a LibreOffice document and populate the content of the generated content of the WebApp then you need a ZIP file of the Office document in which the file `content.xml` is replaced. Due to security limitations the browser cannot access binary content from the filesystem without permission (standard application on your operating system have permissions to write to the filesystem). By storing only required files in a JSON file or Javascript files an arbitrary access to the filesystem is still not available (good for privacy) and only the binary files need for the WebApp are stored in a JSON or a Javascript library.
+
+The following JSON can be created with the [Load to JSON Demo](https://niehausbert.gitlab.io/loadfile4dom/files2jslib.html).  To create a [JSON with an array of files](https://niehausbert.gitlab.io/loadfile4dom/files2json.html) the resulting JSON could look like this.
+All file have a MIME-type and a file name for the file. This is helpful for saving file from the WebApp by application of the library `filesaver.js`. Even binary files can be stored in this JSON file by base64 encoding. This assures that no binary data gets lost, because every byte of the binary data is encode in two characters. Finally the binary data is represented by `base64` encoded string, which consumes more memory but can be summitted and stored in data structures that are designed for strings (see [Demos Examples](https://niehausbert.gitlab.io/loadfile4dom)).
+
+The results of the demo is e.g. the following JSON for 2 added files:
+* the first file is a LibreOffice-ODT document `my_office_doc.odt`, which is in fact a ZIP-file with a special file and folder structure, that can be handled and modified with `JSZip`. The binary data was `base64` encoded.
+* the second file is a standard text file with a new line `\n` and tab character `\t`. The text file is not encoded in `base64`, so that the file content can be used directly in the WebApp resp. DOM tree, e.g. by storing the content in a HTML textarea for further editing by the user of the WebApp.
+
+```json
+[
+    {
+        "name": "my_office_doc.odt",
+        "file": "bW96THo0MAAGDwAA8....",
+        "mime_type": "application/vnd.oasis.opendocument.text"
+    },
+    {
+        "name": "my_comments.txt",
+        "file": "this are \t my comment\nloaded from a file",
+        "mime_type": "text/plain"
+    }
+]
+```
+If you want to store the JSON listed above as a Javascript library and load the data in the main HTML document e.g. `index.html`, you can add the following lines in `index.html`.
+```html
+<script>
+   var vDataJSON = {
+     "files" : null
+   };
 </script>
+<script src="myfiles.js"></script>
+```
+In the library `myfiles.js` is just a slightly modified JSON file, that looks like this.
+```javascript
+// this is a content of 'myfiles.js'
+var  vDataJSON.files = [
+    {
+        "name": "my_office_doc.odt",
+        "file": "bW96THo0MAAGDwAA8....",
+        "mime_type": "application/vnd.oasis.opendocument.text"
+    },
+    {
+        "name": "my_comments.txt",
+        "file": "this are \t my comment\nloaded from a file",
+        "mime_type": "text/plain"
+    }
+]
+```
+**Remark:** Please keep in mind, that the content of file attribute `file` for the LibreOffice document is actually a very long string. The displayed content `bW96THo0MAAGDwAA8....` in this tutorial is not a real ODT-file. To create usable Javascript libraries with stored binary and text files use the demo WebApp (see [AppLSAC](https://en.wikiversity.org/wiki/WebApps_with_LocalStorage_and_AppCache)).
 
-<script src="https://assets.gitlab-static.net/assets/webpack/runtime.5728e69e.bundle.js" defer="defer"></script>
-<script src="https://assets.gitlab-static.net/assets/webpack/main.d418768d.chunk.js" defer="defer"></script>
-<script src="https://assets.gitlab-static.net/assets/webpack/raven.ad6d323b.chunk.js" defer="defer"></script>
-<script src="https://assets.gitlab-static.net/assets/webpack/commons~pages.groups.omniauth_callbacks~pages.ldap.omniauth_callbacks~pages.omniauth_callbacks~pages~960943a1.3de158e3.chunk.js" defer="defer"></script>
-<script src="https://assets.gitlab-static.net/assets/webpack/pages.sessions.new.314dcbcc.chunk.js" defer="defer"></script>
+### Load LibreOffice Files in WebApp
+Assume we store LibreOffice file `libreoffice_template.odt` in a JSON and load the JSON data as library in WebApp. The stored ODT `libreoffice_template.odt` has the MIME type `application/vnd.oasis.opendocument.text` but it is in fact a ZIP file. So creating a LibreOffice file with a WebApp can use a stored ZIP file as template and add user defined content from an editor to the LibreOffice file `my_office_doc.odt`, add images to the document by using the stored  just needs `my_office_doc.odt` as template for the layout of generated LibreOffice document in the WebApp. `JSZip` can be used to process `libreoffice_template.odt` and replace the file `content.xml` in the ZIP.
 
-<meta name="csrf-param" content="authenticity_token" />
-<meta name="csrf-token" content="UCHcd78xL3OdbBhU8zHRcpGOGdWYel3n4avqvZKgavsU5bxprHX7vrF5yHlGwri1HyZ9zlPWvbuhtAdVy/0+dQ==" />
-<meta name="csp-nonce" content="rCy1O7dv1CtEIuL0vDH2Ag==" />
-<meta content="origin-when-cross-origin" name="referrer">
-<meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
-<meta content="#474D57" name="theme-color">
-<link rel="apple-touch-icon" type="image/x-icon" href="https://assets.gitlab-static.net/assets/touch-icon-iphone-5a9cee0e8a51212e70b90c87c12f382c428870c0ff67d1eb034d884b78d2dae7.png" />
-<link rel="apple-touch-icon" type="image/x-icon" href="https://assets.gitlab-static.net/assets/touch-icon-ipad-a6eec6aeb9da138e507593b464fdac213047e49d3093fc30e90d9a995df83ba3.png" sizes="76x76" />
-<link rel="apple-touch-icon" type="image/x-icon" href="https://assets.gitlab-static.net/assets/touch-icon-iphone-retina-72e2aadf86513a56e050e7f0f2355deaa19cc17ed97bbe5147847f2748e5a3e3.png" sizes="120x120" />
-<link rel="apple-touch-icon" type="image/x-icon" href="https://assets.gitlab-static.net/assets/touch-icon-ipad-retina-8ebe416f5313483d9c1bc772b5bbe03ecad52a54eba443e5215a22caed2a16a2.png" sizes="152x152" />
-<link color="rgb(226, 67, 41)" href="https://assets.gitlab-static.net/assets/logo-d36b5212042cebc89b96df4bf6ac24e43db316143e89926c0db839ff694d2de4.svg" rel="mask-icon">
-<meta content="https://assets.gitlab-static.net/assets/msapplication-tile-1196ec67452f618d39cdd85e2e3a542f76574c071051ae7effbfde01710eb17d.png" name="msapplication-TileImage">
-<meta content="#30353E" name="msapplication-TileColor">
+```javascript
+zip.file("content.xml", my_new_content);
+```
 
+When you upload files to a JSON the
 
+### ZIP-Files
+Saving binary data into a zip-file with `JSZip` the first conclusion is to use
+```javascript
+zip.file("myimage.png", imgData); // NOT WORKING
+```
+where `imgData` is a `base64` encoded string. `JSZip` reads `imgData` as string and this implies that the file get corrupted. It is necessary to provide an option to `JSZip` that you want to save an (unicode) string. The example above will not work, because `imgData` is a binary and not a textual content. To avoid that the `zip`-file receives a corrupted content, it is necessary to pass the binary option to the zip handler (see [Demos Examples](https://niehausbert.gitlab.io/loadfile4dom)).
 
-<script nonce="rCy1O7dv1CtEIuL0vDH2Ag==">
-//<![CDATA[
-;(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
-p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments)
-};p[i].q=p[i].q||[];n=l.createElement(o);g=l.getElementsByTagName(o)[0];n.async=1;
-n.src=w;g.parentNode.insertBefore(n,g)}}(window,document,"script","https://assets.gitlab-static.net/assets/snowplow/sp-e10fd598642f1a4dd3e9e0e026f6a1ffa3c31b8a40efd92db3f92d32873baed6.js","snowplow"));
-
-window.snowplowOptions = {"namespace":"gl","hostname":"snowplow.trx.gitlab.net","cookieDomain":".gitlab.com","appId":"gitlab","formTracking":true,"linkClickTracking":true}
-
-
-//]]>
-</script>
-</head>
-
-<body class="application gl-browser-generic gl-platform-other login-page navless ui-indigo" data-page="sessions:new" data-qa-selector="login_page">
-
-<script nonce="rCy1O7dv1CtEIuL0vDH2Ag==">
-//<![CDATA[
-gl = window.gl || {};
-gl.client = {"isGeneric":true,"isOther":true};
+```javascript
+zip.file("myimage.png", imgData, {base64: true})
+```
+See [ZIP-Example](https://niehausbert.gitlab.io/loadfile4dom/upload2zip.html)
 
 
-//]]>
-</script>
-<div class="page-wrap">
-<header class="navbar fixed-top navbar-empty">
-<svg width="24" height="24" class="tanuki-logo" viewBox="0 0 36 36">
-  <path class="tanuki-shape tanuki-left-ear" fill="#e24329" d="M2 14l9.38 9v-9l-4-12.28c-.205-.632-1.176-.632-1.38 0z"/>
-  <path class="tanuki-shape tanuki-right-ear" fill="#e24329" d="M34 14l-9.38 9v-9l4-12.28c.205-.632 1.176-.632 1.38 0z"/>
-  <path class="tanuki-shape tanuki-nose" fill="#e24329" d="M18,34.38 3,14 33,14 Z"/>
-  <path class="tanuki-shape tanuki-left-eye" fill="#fc6d26" d="M18,34.38 11.38,14 2,14 6,25Z"/>
-  <path class="tanuki-shape tanuki-right-eye" fill="#fc6d26" d="M18,34.38 24.62,14 34,14 30,25Z"/>
-  <path class="tanuki-shape tanuki-left-cheek" fill="#fca326" d="M2 14L.1 20.16c-.18.565 0 1.2.5 1.56l17.42 12.66z"/>
-  <path class="tanuki-shape tanuki-right-cheek" fill="#fca326" d="M34 14l1.9 6.16c.18.565 0 1.2-.5 1.56L18 34.38z"/>
-</svg>
 
-</header>
+<!-- JSON-schema `docs/schema` and the JSON data in the folder `docs/db/` to the schema for your requirements. If you want to create your own JSON schema use the [JSON2Schema tool](https://niebert.github.io/JSON2Schema).
 
-<div class="login-page-broadcast">
+-->
 
-</div>
-<div class="container navless-container">
-<div class="content">
-<div class="flash-container flash-container-page sticky">
-</div>
-
-<div class="row mt-3">
-<div class="col-sm-12">
-<h1 class="mb-3 font-weight-normal">
-GitLab.com
-</h1>
-</div>
-</div>
-<div class="row mb-3">
-<div class="col-sm-7 order-12 order-sm-1 brand-holder">
-
-<p data-sourcepos="1:1-1:84" dir="auto">GitLab.com offers free unlimited (private) repositories and unlimited collaborators.</p>&#x000A;<ul data-sourcepos="3:1-7:0" dir="auto">&#x000A;<li data-sourcepos="3:1-3:98">&#x000A;<a href="https://gitlab.com/explore/projects/trending">Explore projects on GitLab.com</a> (no login needed)</li>&#x000A;<li data-sourcepos="4:1-4:75"><a href="https://about.gitlab.com/gitlab-com/" rel="nofollow noreferrer noopener" target="_blank">More information about GitLab.com</a></li>&#x000A;<li data-sourcepos="5:1-5:80"><a href="https://gitlab.com/gitlab-com/support-forum/issues">GitLab.com Support Forum</a></li>&#x000A;<li data-sourcepos="6:1-7:0"><a href="https://about.gitlab.com" rel="nofollow noreferrer noopener" target="_blank">GitLab Homepage</a></li>&#x000A;</ul>&#x000A;<p data-sourcepos="8:1-8:67" dir="auto">By signing up for and by signing in to this service you accept our:</p>&#x000A;<ul data-sourcepos="10:1-11:65" dir="auto">&#x000A;<li data-sourcepos="10:1-10:53"><a href="https://about.gitlab.com/privacy/" rel="nofollow noreferrer noopener" target="_blank">Privacy policy</a></li>&#x000A;<li data-sourcepos="11:1-11:65">&#x000A;<a href="https://about.gitlab.com/terms/#gitlab_com" rel="nofollow noreferrer noopener" target="_blank">GitLab.com Terms</a>.</li>&#x000A;</ul>
-
-</div>
-<div class="col-sm-5 order-1 order-sm-12 new-session-forms-container">
-<div id="signin-container">
-<ul class="nav-links new-session-tabs nav-tabs nav" role="tablist">
-<li class="nav-item" role="presentation">
-<a class="nav-link active" data-qa-selector="sign_in_tab" data-toggle="tab" href="#login-pane" role="tab">Sign in</a>
-</li>
-<li class="nav-item" role="presentation">
-<a class="nav-link" data-qa-selector="register_tab" data-toggle="tab" data-track-event="click_button" data-track-label="sign_in_register" data-track-property="" data-track-value="" href="#register-pane" role="tab">Register</a>
-</li>
-</ul>
-
-<div class="tab-content">
-<div class="login-box tab-pane active" id="login-pane" role="tabpanel">
-<div class="login-body">
-<form class="new_user gl-show-field-errors" id="new_user" aria-live="assertive" action="/users/sign_in" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="3ckW7Ly2YsgWGB8nLJeJUBawX3x1P+vWwpuRO4pSFFuZDXbyr/K2BToNzwqZZOCXmBg7Z76TC4qChHzT0w9A1Q==" /><div class="form-group">
-<label for="user_login" class="label-bold">Username or email</label>
-<input class="form-control top" autofocus="autofocus" autocapitalize="off" autocorrect="off" required="required" title="This field is required." data-qa-selector="login_field" type="text" name="user[login]" id="user_login" />
-</div>
-<div class="form-group">
-<label class="label-bold" for="user_password">Password</label>
-<input class="form-control bottom" required="required" title="This field is required." data-qa-selector="password_field" type="password" name="user[password]" id="user_password" />
-</div>
-<div class="remember-me">
-<label for="user_remember_me">
-<input name="user[remember_me]" type="hidden" value="0" /><input class="remember-me-checkbox" type="checkbox" value="1" name="user[remember_me]" id="user_remember_me" />
-<span>Remember me</span>
-</label>
-<div class="float-right">
-<a href="/users/password/new">Forgot your password?</a>
-</div>
-</div>
-<div></div>
-<div class="submit-container move-submit-down">
-<input type="submit" name="commit" value="Sign in" class="btn btn-success" data-qa-selector="sign_in_button" data-disable-with="Sign in" />
-</div>
-</form>
-</div>
-</div>
-
-<div class="tab-pane login-box" id="register-pane" role="tabpanel">
-<div class="login-body">
-<form class="new_new_user gl-show-field-errors" id="new_new_user" aria-live="assertive" action="/users" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="0dI8h478gRua9ELfnvhSYZAplliwq2LIrgjk4JkZeAaVFlyZnbhV1rbhkvIrCzumHoHyQ3sHgpTuFwkIwEQsiA==" /><div class="devise-errors">
-
-</div>
-<div class="name form-group">
-<label class="label-bold" for="new_user_name">Full name</label>
-<input class="form-control top js-block-emoji js-validate-length" data-max-length="128" data-max-length-message="Name is too long (maximum is 128 characters)." data-qa-selector="new_user_name_field" required="required" title="This field is required." type="text" name="new_user[name]" id="new_user_name" />
-</div>
-<div class="username form-group">
-<label class="label-bold" for="new_user_username">Username</label>
-<input class="form-control middle js-block-emoji js-validate-length js-validate-username" data-max-length="255" data-max-length-message="Username is too long (maximum is 255 characters)." data-qa-selector="new_user_username_field" pattern="[a-zA-Z0-9_\.][a-zA-Z0-9_\-\.]*[a-zA-Z0-9_\-]|[a-zA-Z0-9_]" required="required" title="Please create a username with only alphanumeric characters." type="text" name="new_user[username]" id="new_user_username" />
-<p class="validation-error gl-field-error-ignore field-validation hide">Username is already taken.</p>
-<p class="validation-success gl-field-error-ignore field-validation hide">Username is available.</p>
-<p class="validation-pending gl-field-error-ignore field-validation hide">Checking username availability...</p>
-</div>
-<div class="form-group">
-<label class="label-bold" for="new_user_email">Email</label>
-<input class="form-control middle" data-qa-selector="new_user_email_field" required="required" title="Please provide a valid email address." type="email" value="" name="new_user[email]" id="new_user_email" />
-</div>
-<div class="form-group">
-<label class="label-bold" for="new_user_email_confirmation">Email confirmation</label>
-<input class="form-control middle" data-qa-selector="new_user_email_confirmation_field" required="required" title="Please retype the email address." type="email" name="new_user[email_confirmation]" id="new_user_email_confirmation" />
-</div>
-<div class="form-group append-bottom-20" id="password-strength">
-<label class="label-bold" for="new_user_password">Password</label>
-<input class="form-control bottom" data-qa-selector="new_user_password_field" required="required" pattern=".{8,}" title="Minimum length is 8 characters." type="password" name="new_user[password]" id="new_user_password" />
-<p class="gl-field-hint text-secondary">Minimum length is 8 characters</p>
-</div>
-<div class="form-group">
-<input type="checkbox" name="terms_opt_in" id="terms_opt_in" value="1" required="required" data-qa-selector="new_user_accept_terms_checkbox" />
-<label for="terms_opt_in">I accept the <a target="_blank" href="/-/users/terms">Terms of Service and Privacy Policy</a>
-</label></div>
-<div class="form-group">
-<input name="new_user[email_opted_in]" type="hidden" value="0" /><input type="checkbox" value="1" name="new_user[email_opted_in]" id="new_user_email_opted_in" />
-<label for="new_user_email_opted_in">I&#39;d like to receive updates via email about GitLab.</label>
-</div>
-
-<div></div>
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
-<div data-sitekey="6LfAERQTAAAAAL4GYSiAMGLbcLyUIBSfPrDNJgeC" class="g-recaptcha "></div>
-          <noscript>
-            <div>
-              <div style="width: 302px; height: 422px; position: relative;">
-                <div style="width: 302px; height: 422px; position: absolute;">
-                  <iframe
-                    src="https://www.google.com/recaptcha/api/fallback?k=6LfAERQTAAAAAL4GYSiAMGLbcLyUIBSfPrDNJgeC"
-                    scrolling="no" name="ReCAPTCHA"
-                    style="width: 302px; height: 422px; border-style: none; border: 0;">
-                  </iframe>
-                </div>
-              </div>
-              <div style="width: 300px; height: 60px; border-style: none;
-                bottom: 12px; left: 25px; margin: 0px; padding: 0px; right: 25px;
-                background: #f9f9f9; border: 1px solid #c1c1c1; border-radius: 3px;">
-                <textarea id="g-recaptcha-response" name="g-recaptcha-response"
-                  class="g-recaptcha-response"
-                  style="width: 250px; height: 40px; border: 1px solid #c1c1c1;
-                  margin: 10px 25px; padding: 0px; resize: none;">
-                </textarea>
-              </div>
-            </div>
-          </noscript>
-
-<div class="submit-container">
-<input type="submit" name="commit" value="Register" class="btn-register btn" data-qa-selector="new_user_register_button" data-disable-with="Register" />
-</div>
-</form></div>
-</div>
-
-</div>
-<div class="clearfix">
-<div class="omniauth-container prepend-top-15">
-<label class="label-bold d-block">
-Sign in with
-</label>
-<div class="d-flex justify-content-between flex-wrap">
-<a class="btn d-flex align-items-center omniauth-btn text-left oauth-login " id="oauth-login-google_oauth2" rel="nofollow" data-method="post" href="/users/auth/google_oauth2"><img alt="Google" title="Sign in with Google" data-src="https://assets.gitlab-static.net/assets/auth_buttons/google_64-9ab7462cd2115e11f80171018d8c39bd493fc375e83202fbb6d37a487ad01908.png" class="lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />
-<span>
-Google
-</span>
-</a><a class="btn d-flex align-items-center omniauth-btn text-left oauth-login " id="oauth-login-twitter" rel="nofollow" data-method="post" href="/users/auth/twitter"><img alt="Twitter" title="Sign in with Twitter" data-src="https://assets.gitlab-static.net/assets/auth_buttons/twitter_64-86860edb139fb2f62fc25ef62a4213a5c8b20122fd8752ab0df09e740eb53deb.png" class="lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />
-<span>
-Twitter
-</span>
-</a><a class="btn d-flex align-items-center omniauth-btn text-left oauth-login qa-github-login-button" id="oauth-login-github" rel="nofollow" data-method="post" href="/users/auth/github"><img alt="GitHub" title="Sign in with GitHub" data-src="https://assets.gitlab-static.net/assets/auth_buttons/github_64-84041cd0ea392220da96f0fb9b9473c08485c4924b98c776be1bd33b0daab8c0.png" class="lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />
-<span>
-GitHub
-</span>
-</a><a class="btn d-flex align-items-center omniauth-btn text-left oauth-login " id="oauth-login-bitbucket" rel="nofollow" data-method="post" href="/users/auth/bitbucket"><img alt="Bitbucket" title="Sign in with Bitbucket" data-src="https://assets.gitlab-static.net/assets/auth_buttons/bitbucket_64-267f322b8bedf1a39970bc215a2eb9e862c8c8033ff2390840607cb0e2dd0daf.png" class="lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />
-<span>
-Bitbucket
-</span>
-</a><a class="btn d-flex align-items-center omniauth-btn text-left oauth-login " id="oauth-login-salesforce" rel="nofollow" data-method="post" href="/users/auth/salesforce"><img alt="Salesforce" title="Sign in with Salesforce" data-src="https://assets.gitlab-static.net/assets/auth_buttons/salesforce_64-3f0cb95b231cc615e09bb96d54ccaf562d729b21f255270e03d98b17466bd61f.png" class="lazy" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" />
-<span>
-Salesforce
-</span>
-</a></div>
-<fieldset class="remember-me">
-<label>
-<input type="checkbox" name="remember_me" id="remember_me" class="remember-me-checkbox" />
-<span>
-Remember me
-</span>
-</label>
-</fieldset>
-</div>
-
-</div>
-</div>
-
-</div>
-</div>
-</div>
-</div>
-<hr class="footer-fixed">
-<div class="container footer-container">
-<div class="footer-links">
-<a href="/explore">Explore</a>
-<a href="/help">Help</a>
-<a href="https://about.gitlab.com/">About GitLab</a>
-</div>
-</div>
-
-</div>
-</body>
-</html>
+<!-- END:   src/readme/usage.md -->

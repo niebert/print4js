@@ -3,6 +3,24 @@ echo "-----------------------------------"
 echo "--- CALL: $0"
 echo "-----------------------------------"
 
+######## MEW REPOSITORY ##########
+# Run this script 'update_src_gitlab.sh' in a new directory
+# this repository will be created by the script
+# Change the following settings for
+username="niebert"
+reponame="jsoneditor2menu"
+exportvar="JSONEditor2Menu"
+#gittype="gitlab"
+gittype="github"
+gitsource="https://www.${gittype}.com/${gituser}/${reponame}"
+websource="https://${gituser}.${gittype}.io/${reponame}"
+
+username="niebert"
+
+######### SOURCE #################
+# Downloaded files can come from GitLab and GitHub sources
+# so URLs for GitLab and GitHub respositories must be defined
+# DO NOT CHANGE THESE NAMES because they define the sources
 gitlabuser="niehausbert"
 githubuser="niebert"
 # Source URL to download from the files:
@@ -10,6 +28,11 @@ urlpath4gitlab="https://${gitlabuser}.gitlab.io"
 urlpath4github="https://${githubuser}.github.io"
 urlpath="$urlpath4gitlab"
 webpath="$urlpath4github"
+#-- Form this main GitLab repository the files are loaded
+reponame4load="loadfile4dom"
+exportvar4load="LoadFile4DOM"
+downloadsource="$urlpath4github/$reponame4load"
+
 # Append Path of Repository to source path
 
 # --------------------------------
@@ -28,16 +51,7 @@ sed_call = "sed -i '' "
 
 
 
-reponame="jsoneditor2menu"
-exportvar="JSONEditor2Menu"
-source="$urlpath/$reponame"
-websource="$webpath/$reponame"
-username="niebert"
 
-#-- Form this GitLab repository the files are loaded
-reponame4load="loadfile4dom"
-exportvar4load="LoadFile4DOM"
-downloadsource="$urlpath4github/$reponame4load"
 
 #defvalue=$gitlabuser
 #read -p "Enter your GitHub username for this repository?  " -i "$defvalue" gitlabuser
@@ -75,8 +89,8 @@ mkdir -p src/readme
 mkdir -p src/css
 
 # codegenerator files (RepoBase "HandleBars4Code")
-wget $source/build.js  -O ./build.js
-# wget $source/src/codegen.js  -O ./src/codegen.js
+wget $downloadsource/build/build.js  -O ./build.js
+# wget $downloadsource/build/src/codegen.js  -O ./src/codegen.js
 
 sleep $sleeptime
 
@@ -104,7 +118,7 @@ then
 	echo "NPM: Check file '$file' - found."
 else
 	echo "NPM: Check file '$file' - not found - try to download."
-  wget "$source/$file"  -O "$file"
+  wget "$downloadsource/build/$file"  -O "$file"
   echo "------------------------------------------------------"
   echo "STREAM EDITOR SED: Search/Replace in 'package.json'"
   echo "Operating System: $OpSys"
@@ -118,11 +132,11 @@ else
   regexdef="'s/$exportvar4load/$exportvar/g'"
   echo "(2) $sed_call $regexdef ./$file "
   $sed_call $regexdef ./$file
-	if [ "$username_replace" = "$gitlabuser" ]; then
+	if [ "$username" = "$gitlabuser" ]; then
     echo "GitLab Username already correct"
 	else
-    echo "Source Username '$gitlabuser' does NOT matche Destination username '$username_replace'"
-		regexdef="'s/niebert/$gitlabuser/g'"
+    echo "Source Username '$gitlabuser' does NOT match Destination username '$username'"
+		regexdef="'s/$gitlabuser/$username/g'"
 	  echo "(3) $sed_call $regexdef ./$file "
 	  $sed_call $regexdef ./$file
 	fi;
@@ -133,97 +147,115 @@ else
 fi
 
 #### CODE GENERATION src/libs src/html
+codetype="CODEGEN"
 file="files4build.js"
 if [ -f "./$file" ]
 then
 	echo "CODEGEN: Check file '$file' - found."
-	wget "$source/$file  -O ./file4buid_new.js"
+	wget "$downloadsource/build/$file  -O ./file4buid_$reponame4load.js"
 else
 	echo "CODEGEN: Check file '$file' - not found - try to download."
-  wget $source/$file  -O ./$file
+  wget $downloadsource/build/$file  -O ./$file
 	sleep $sleeptime
 fi
 
 ### HTML Code Generation
-for filename in "body.html" "bodyheader.html" "bodytail.html" "datajson.html" "header.html" "headerlibs.html" "headerscript.html" "tail.html" "tailscript.html"
+codetype="HTML"
+pathprefix="src/html"
+for filename in "body.html" "bodyheader.html" "bodytail.html" "datajson.html" "header.html" "headerlibs.html" "headerscript.html" "tail.html" "tailscript.html" "title.html"
 do
-  echo "HTML: checking file exists or download '$filename'"
-  file="./src/html/$filename"
+  echo "$codetype: check, if file exists or download '$filename'"
+  file="./$pathprefix/$filename"
+	donwloadfile="$downloadsource/build/$pathprefix/$filename"
   if [ -f "$file" ]
   then
-  	echo "   Check file '$file' - found."
+  	echo "   Check ${codetype}-file '$file' - found."
   else
-  	echo "   Check file '$file' - not found - try to download."
-    wget $source/src/html/$filename  -O $file
+  	echo "   Check ${codetype}-file '$file' - not found - download '$downloadfile'."
+    wget $downloadfile  -O $file
 		sleep $sleeptime
   fi
 done
 
 ### README Code Generation
-for filename in "acknowledgement.md" "body.md" "browserify.md" "build_process.md" "doctoc.md" "folderdocs.md" "folderrepo.md" "handlebars4code.md" "headerintro.md" "jsonschema.md" "tail.md" "usage.md"
+codetype="README"
+pathprefix="src/readme"
+for filename in "abstract.md" "acknowledgement.md" "background.md" "body.md" "browserify.md" "build_process.md" "demos.md" "doctoc.md" "folderdocs.md" "folderrepo.md" "handlebars4code.md" "headerintro.md" "installation.md" "loadfile4dom_api" "loadfile4dom_documentation.md" "scanfiles.md" "tail.md" "technical.md" "usage.md" "wikiversity.md"
 do
-  echo "README: checking file exists or download '$filename'"
-  file="./src/readme/$filename"
-  if [ -f "$file" ]
+	echo "$codetype: check, if file exists or download '$filename'"
+  file="./$pathprefix/$filename"
+	donwloadfile="$downloadsource/build/$pathprefix/$filename"
+	if [ -f "$file" ]
   then
-  	echo "   Check file '$file' - found."
+  	echo "   Check ${codetype}-file '$file' - found."
   else
-  	echo "   Check file '$file' - not found - try to download."
-    wget $source/src/readme/$filename  -O $file
+  	echo "   Check ${codetype}-file '$file' - not found - download '$downloadfile'."
+    wget $downloadfile  -O $file
 		sleep $sleeptime
   fi
 done
 
 
 ### SRC/CSS Code Generation
+codetype="CSS"
+pathprefix="src/css"
 for filename in "main.css"
 do
-  echo "CSS: checking file exists or download '$filename'"
-  file="./src/css/$filename"
+	echo "$codetype: check, if file exists or download '$filename'"
+  file="./$pathprefix/$filename"
+	donwloadfile="$downloadsource/build/$pathprefix/$filename"
   if [ -f "$file" ]
   then
-  	echo "   Check file '$file' - found."
+  	echo "   Check ${codetype}-file '$file' - found."
   else
-  	echo "   Check file '$file' - not found - try to download."
-    wget $source/src/css/$filename  -O $file
+  	echo "   Check ${codetype}-file '$file' - not found - download '$downloadfile'."
+    wget $downloadfile  -O $file
 		sleep $sleeptime
   fi
 done
 
-### DOCS/CSS Code Generation
-for filename in "bootstrap-theme.css" "bootstrap-theme.css.map"  "bootstrap.css" "bootstrap.css.map" "font-awesome.css"
+### DOCS/CSS Extra Style Sheets Code Generation
+codetype="CSS"
+pathprefix="src/css"
+for filename in "bootstrap-theme.css" "bootstrap-theme.css.map"  "bootstrap.css" "bootstrap.css.map"
 do
-  echo "CSS: checking file exists or download '$filename'"
-  file="./docs/css/$filename"
+	echo "$codetype: check, if file exists or download '$filename'"
+  file="./$pathprefix/$filename"
+	donwloadfile="$downloadsource/build/$pathprefix/$filename"
   if [ -f "$file" ]
   then
-  	echo "   Check file '$file' - found."
+  	echo "   Check ${codetype}-file '$file' - found."
   else
-  	echo "   Check file '$file' - not found - try to download."
-    wget $websource/css/$filename  -O $file
+  	echo "   Check ${codetype}-file '$file' - not found - download '$downloadfile'."
+    wget $downloadfile  -O $file
 		sleep $sleeptime
   fi
 done
 
 
 ### ICONS4MENU for docs/img/icons-svg
-wget $urlpath4github/icons4menu/wget_icons.sh  -O ./wget_icons.#!/bin/sh
-wget $urlpath4github/icons4menu/update_wget_icons.sh  -O ./update_wget_icons.#!/bin/sh
+codetype="ICONS"
+pathprefix="docs"
+echo "$codetype: Update scripts for Icons4Menu downloaded - for using the full set of Icons"
+wget $urlpath4github/icons4menu/wget_icons.sh  -O ./$pathprefix/wget_icons.sh
+wget $urlpath4github/icons4menu/update_wget_icons.sh  -O ./$pathprefix/update_wget_icons.sh
 
+pathprefix="img/icons-svg"
 for filename in  "fa-folder-open" "fa-file-save" "gear" "fa-trash" "gear" "edit" "info" "power"
  do
-  echo "ICONS: checking file exists or download '$filename'"
+  echo "$codetypeS: check, if file exists or download '$filename'"
   for filepostfix in  "-white.svg" "-black.svg"
     do
-      file="./docs/img/icons-svg/$filename$filepostfix"
-      if [ -f "$file" ]
-        then
-  	       echo "   Check file '$file' - found."
-      else
-  	     echo "   Check file '$file' - not found - try to download."
-         wget $urlpath4github/icons4menu/img/icons-svg/$filename$filepostfix  -O $file
-		     sleep $sleeptime
-      fi
+      file="./docs/$pathprefix/$filename$filepostfix"
+			donwloadfile="$urlpath4github/icons4menu/$pathprefix/$filename"
+		  if [ -f "$file" ]
+		  then
+		  	echo "   Check ${codetype}-file '$file' - found."
+		  else
+		  	echo "   Check ${codetype}-file '$file' - not found - download '$downloadfile'."
+		    wget $downloadfile  -O $file
+				sleep $sleeptime
+		  fi
   done
 done
 echo "---------------------------------------------------"
@@ -235,4 +267,6 @@ echo "    please edit $0 and alter SED-call."
 echo "Repository Name:            $reponame"
 echo "Export Variable/Class Name: $exportvar"
 echo "GitLab Username:            $gitlabuser"
+echo "-----------Main Source Repository------------------"
+echo "Repository: $downloadsource"
 echo "---------------------------------------------------"
