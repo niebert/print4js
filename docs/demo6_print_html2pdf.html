@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Demo 6: Print PDF with html2pdf</title>
+     <!-- Main CSS -->
+     <link href="css/main.css" rel="stylesheet">
+
+     <script src="js/string.js"></script>
+
+     <script type="text/javascript">
+        // tpl contains the template for code generation see "tpl/code_highlight_tpl.js"
+        var vDataJSON = {
+              "tpl": {
+                "preview": "Preview Template undefined\n___CODE___",
+                "print": "Print Template undefined\n___CODE___",
+                "html": "Print HTML Template undefined\n___CODE___"
+              }
+            };
+     </script>
+     <script src="js/html2pdf.bundle.js"></script>
+     <script>
+        //-----------------------------------------------
+
+        function get_source(pID,pTemplate) {
+          var vSource = "Undefined source in node '" + pID + "'";
+          var vNode = document.getElementById(pID);
+          if (vNode) {
+            vSource = vNode.innerHTML;
+            //console.log("CODE: "+vSource);
+            var template = "Undefined Template\nCODE: ___CODE___";
+            if (pTemplate) {
+              console.log("pTemplate defined in get_source()");
+              template = pTemplate;
+            } else {
+              if (vDataJSON.hasOwnProperty("tpl")) {
+                if (vDataJSON.tpl.hasOwnProperty("print")) {
+                  template = vDataJSON.tpl.html;
+                } else {
+                  console.error("TEMPLATE: 'print' undefined in vDataJSON.tpl");
+                }
+              } else {
+                console.error("TEMPLATE: 'tpl' undefined in vDataJSON");
+              };
+            }
+            console.log("TEMPLATE: " + template);
+            //console.log("TEMPLATE: " + template);
+            vSource = replaceString(template,"___CODE___",vSource);
+            //console.log("SOURCE: " + vSource);
+
+          } else {
+            console.error("DOM node with ID='" + pID + "' undefined!");
+          };
+          return vSource
+        }
+
+
+        function printTextArea(pID) {
+          console.log("Generate PDF from HTML input in the DIV element with the ID='" + pID + "'");
+          //var html = get_source(pID,vDataJSON.tpl.html);
+          var vSource = "Undefined source in node '" + pID + "'";
+          var vPrintNode = document.getElementById(pID);
+          if (vPrintNode) {
+            html2pdf(vPrintNode);
+          } else {
+            console.error("ERROR: DOM node with the ID=[" + pID+ "] is undefined!");
+          };
+          // Open a print window print_win
+          /*
+          print_win.document.open();
+          print_win.document.write(html);
+          print_win.document.close();
+          print_win.focus();
+          print_win.print();
+          print_win.close();
+          */
+        }
+
+        function previewTextArea(pID) {
+          console.log("Print HTML content in textarea with the ID='" + pID + "'");
+          var preview_win = window.open("","wPreviewtWin","width=600,height=400,toolbar=yes,location=yes,status=yes,menubar=yes,scrollbars=yes,resizable=yes");
+          var html = get_source(pID,vDataJSON.tpl.html);
+
+          // Open a print window print_win
+          preview_win.document.open();
+          preview_win.document.write(html);
+          preview_win.document.close();
+          preview_win.focus();
+        }
+
+    </script>
+    <!-- Load the Print and Preview Templates in folder "tpl/" -->
+    <script src="tpl/preview_tpl.js"></script>
+    <script src="tpl/print_tpl.js"></script>
+    <script src="tpl/html_tpl.js"></script>
+
+  </head>
+  <body>
+    <h2>Print4JS - Demo: Print document with <a href="https://ekoopmans.github.io/html2pdf.js/" target="_blank"><tt>html2pdf.js</tt></a> </h2>
+    This WebApp Demois an <a href="https://en.wikiversity.org/wiki/AppLSAC" target="_blank">AppLSAC</a>
+    <ul>
+      <li>
+        The HTML content was rendered with <a href="https://ekoopmans.github.io/html2pdf.js/" target="_blank">html2pdf.js</a>.
+        In this document a specific DOM-Node with the ID <tt>input4html2pdf</tt> contains the printed HTML content.
+      </li>
+      <li>
+        the HTML code in the DIV-element is used as input for generating the PDF document. The PDF document is used for printing.
+      </li>
+      <li>
+        <button onclick="previewTextArea('input4html2pdf');return false">HTML Preview Print Window</button>
+      </li>
+      <li>
+        <button onclick="printTextArea('input4html2pdf');return false">Print PDF</button>
+        The content of the PDF converted will be shown in a print window.
+      </li>
+    </ul>
+    <hr>
+    <b>HTML Source for PDF Generation and Printing:</b>
+    <hr>
+    <div id="input4html2pdf">
+      <h1 style="color:red">Print4JS Demo: Textarea</h1>
+      Hello World example as <b style="color:white">html2pdf</b> input.
+      Add image in a table to the document.
+      <table border="2">
+        <tr>
+          <td> <img src="img/icons-svg/fa-folder-open-black.svg" alt="Icon fa-folder-open-black" width="46" height="46"> </td>
+          <td> <img src="img/icons-svg/fa-file-save-black.svg" alt="Icon fa-file-save-black" width="46" height="46"> </td>
+        </tr>
+      </table>
+    </div>
+    <hr>
+    <center>
+      <b>
+        <a href="index.html">&lt;&lt; Demo Applications with Print4JS</a>
+      </b>
+    </center>
+  </body>
+</html>

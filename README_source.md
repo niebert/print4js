@@ -58,7 +58,7 @@ The next steps describe the basic constituents of creating a print job within a 
 
     }
     // var vPrintWin = openPrintWindow('about:blank');
-    var vPrintWin = openPrintWindow('printwindow.html');
+    var vPrintWin = openPrintWindow('print_win.html');
     addPrintContent(vPrintWin,"<h1>Hello, World!</h1>");
     vPrintWin.print();
 

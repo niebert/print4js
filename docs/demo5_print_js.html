@@ -2,15 +2,14 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Demo 3: Print PDF with html2pdf</title>
+    <title>Demo 1: Print Content in Textarea</title>
+
      <!-- Main CSS -->
      <link href="css/main.css" rel="stylesheet">
-     <link rel="stylesheet" href="css/hightlight_css/default.css">
-     <script src="js/highlight.js"></script>
+
      <script src="js/loadfile4dom.js"></script>
-     <script src="js/html2pdf.js"></script>
+     <script src="js/print4js.js"></script>
      <script>
-        //-----------------------------------------------
         var lf4d = new LoadFile4DOM();
         var options = {
           "debug": false // if true, it will show the hidden <input type="file" ...> loaders in DOM
@@ -72,31 +71,40 @@
     </script>
   </head>
   <body onload="lf4d.create()">
-    <h2>Print4JS - Demo: Print document with <a href="https://ekoopmans.github.io/html2pdf.js/" target="_blank"><tt>html2pdf.js</tt></a> </h2>
-    This WebApp Demois an <a href="https://en.wikiversity.org/wiki/AppLSAC" target="_blank">AppLSAC</a>
-    <ul>
+    <h2>Print4JS - Demo 5: Print Content with <a href="https://printjs.crabbly.com/"><tt>print.js</tt></a></h2>
+    This WebApp Demo is an <a href="https://en.wikiversity.org/wiki/AppLSAC/Print" target="_blank">AppLSAC</a> showing one example of print features of WebApps.
+    The <a href="https://www.github.com/niebert/print4js" target="_blank"><tt>print4js</tt> repository</a> is forked and modified to serve as <a href="https://en.wikiversity.org/wiki/AppLSAC/Print">learning resource in Wikiversity</a>. 
+  <ul>
       <li>
-        The HTML content was rendered with <a href="https://github.com/highlightjs/highlight.js" target="_blank">highlight.js</a>.
+        You can edit HTML content in the textarea below and press the <a href="#" onclick="printTextArea()">Print-Button</a>.
+        in a browser.
       </li>
       <li>
-        the rendered code highlight is used to generate the print window.
+        <button onclick="lf4d.open_dialog('mytxtfile');return false">Load HTML File</button>: You can load HTML files into the text area.
+        in a browser.
       </li>
       <li>
-        <button onclick="previewTextArea();return false">Preview Print Window</button>
+        <button onclick="previewTextArea();return false">Preview HTML</button>
+        The content of the textarea below will be used to generate the HTML content in a browser window.
       </li>
       <li>
         <button onclick="printTextArea();return false">Print HTML</button>
-        The content of the code highlight below will be used to generate the print window
+        The content of the textarea below will be used to generate the print window
       </li>
     </ul>
     <hr>
-    <div id="input4html2pdf">
-      <b>HTML Source for Printing:</b>
-      <br>
-      You can load HTML files into the text area.
-      <h1 style="color:red">Print4JS Demo: Textarea</h1>
-      Hello World example as <b style="color:white">html2pdf</b> input
-    </div>
+    <b>HTML Source for Printing:</b>
+    <br>
+    You can load HTML files into the text area.
+    <br>
+    <textarea id="mytextarea" name="ta1" rows="8" cols="80">
+<html>
+  <body>
+    <h1>Print4JS Demo: Textarea</h1>
+    Hello World
+  </body>
+</html>
+    </textarea>
     <hr>
     <center>
       <b>

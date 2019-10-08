@@ -1,86 +1,11 @@
 /* ---------------------------------------
  Exported Module Variable: Print4JS
  Package:  print4js
- Version:  1.0.61  Date: 2019/10/07 14:47:33
+ Version:  1.0.61  Date: 2019/10/08 10:47:26
  Homepage: http://printjs.crabbly.com
  Author:   Rodrigo Vieira <rodrigo@crabbly.com>
  License:  MIT
- Date:     2019/10/07 14:47:33
- Require Module with:
-    const Print4JS = require('print4js');
- JSHint: installation with 'npm install jshint -g'
- ------------------------------------------ */
-
-/*jshint  laxcomma: true, asi: true, maxerr: 150 */
-/*global alert, confirm, console, prompt */
-/* ---------------------------------------
- Exported Module Variable: Print4JS
- Package:  print4js
- Version:  1.0.61  Date: 2019/10/07 14:47:08
- Homepage: http://printjs.crabbly.com
- Author:   Rodrigo Vieira <rodrigo@crabbly.com>
- License:  MIT
- Date:     2019/10/07 14:47:08
- Require Module with:
-    const Print4JS = require('print4js');
- JSHint: installation with 'npm install jshint -g'
- ------------------------------------------ */
-
-/*jshint  laxcomma: true, asi: true, maxerr: 150 */
-/*global alert, confirm, console, prompt */
-/* ---------------------------------------
- Exported Module Variable: Print4JS
- Package:  print4js
- Version:  1.0.61  Date: 2019/10/07 14:45:32
- Homepage: http://printjs.crabbly.com
- Author:   Rodrigo Vieira <rodrigo@crabbly.com>
- License:  MIT
- Date:     2019/10/07 14:45:32
- Require Module with:
-    const Print4JS = require('print4js');
- JSHint: installation with 'npm install jshint -g'
- ------------------------------------------ */
-
-/*jshint  laxcomma: true, asi: true, maxerr: 150 */
-/*global alert, confirm, console, prompt */
-/* ---------------------------------------
- Exported Module Variable: Print4JS
- Package:  print4js
- Version:  1.0.61  Date: 2019/10/07 14:40:06
- Homepage: http://printjs.crabbly.com
- Author:   Rodrigo Vieira <rodrigo@crabbly.com>
- License:  MIT
- Date:     2019/10/07 14:40:06
- Require Module with:
-    const Print4JS = require('print4js');
- JSHint: installation with 'npm install jshint -g'
- ------------------------------------------ */
-
-/*jshint  laxcomma: true, asi: true, maxerr: 150 */
-/*global alert, confirm, console, prompt */
-/* ---------------------------------------
- Exported Module Variable: Print4JS
- Package:  print4js
- Version:  1.0.61  Date: 2019/10/07 14:36:03
- Homepage: http://printjs.crabbly.com
- Author:   Rodrigo Vieira <rodrigo@crabbly.com>
- License:  MIT
- Date:     2019/10/07 14:36:03
- Require Module with:
-    const Print4JS = require('print4js');
- JSHint: installation with 'npm install jshint -g'
- ------------------------------------------ */
-
-/*jshint  laxcomma: true, asi: true, maxerr: 150 */
-/*global alert, confirm, console, prompt */
-/* ---------------------------------------
- Exported Module Variable: Print4JS
- Package:  print4js
- Version:  1.0.61  Date: 2019/10/07 14:35:20
- Homepage: http://printjs.crabbly.com
- Author:   Rodrigo Vieira <rodrigo@crabbly.com>
- License:  MIT
- Date:     2019/10/07 14:35:20
+ Date:     2019/10/08 10:47:26
  Require Module with:
     const Print4JS = require('print4js');
  JSHint: installation with 'npm install jshint -g'
@@ -1030,18 +955,3 @@ module.exports = __webpack_require__(/*! ./src/index.js */"./src/index.js");
 /******/ })["default"];
 });
 //# sourceMappingURL=print.map
-
-// -------NPM Export Variable: Print4JS---------------
-module.exports = Print4JS;
-
-// -------NPM Export Variable: Print4JS---------------
-module.exports = Print4JS;
-
-// -------NPM Export Variable: Print4JS---------------
-module.exports = Print4JS;
-
-// -------NPM Export Variable: Print4JS---------------
-module.exports = Print4JS;
-
-// -------NPM Export Variable: Print4JS---------------
-module.exports = Print4JS;

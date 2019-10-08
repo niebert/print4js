@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Demo 4: Print Code with Syntax Highlighting</title>
+     <!-- Main CSS -->
+     <link href="css/main.css" rel="stylesheet">
+
+     <script src="js/string.js"></script>
+
+     <script type="text/javascript">
+        // tpl contains the template for code generation see "tpl/code_highlight_tpl.js"
+        var vDataJSON = {
+              "tpl": {
+                "preview": "Preview Template undefined\n___CODE___",
+                "print": "Print Template undefined\n___CODE___",
+                "html": "HTML Template undefined\n___CODE___"
+              }
+            };
+     </script>
+
+     <!-- Code for HighlightJS Library -->
+     <link rel="stylesheet" href="css/highlight_css/xcode.css">
+     <script src="js/highlight.js"></script>
+     <script>hljs.initHighlightingOnLoad();</script>
+
+    <script>
+      //-----------------------------------------------
+
+      function get_source(pID,pTemplate) {
+          var vSource = "Undefined source in node '" + pID + "'";
+          var vNode = document.getElementById(pID);
+          if (vNode) {
+            vSource = vNode.value;
+            //vSource = hljs.highlight('javascript',vSource).value;
+            //console.log("CODE: "+vSource);
+            var template = "Undefined Template\nCODE: ___CODE___";
+            if (pTemplate) {
+              console.log("pTemplate defined in get_source()");
+              template = pTemplate;
+            } else {
+              if (vDataJSON.hasOwnProperty("tpl")) {
+                if (vDataJSON.tpl.hasOwnProperty("print")) {
+                  template = vDataJSON.tpl.print;
+                } else {
+                  console.error("TEMPLATE: 'print' undefined in vDataJSON.tpl");
+                }
+              } else {
+                console.error("TEMPLATE: 'tpl' undefined in vDataJSON");
+              };
+            }
+            console.log("TEMPLATE: " + template);
+            //alert("TEMPLATE: " + template);
+            vSource = replaceString(template,"___CODE___",vSource);
+            //alert("SOURCE: " + vSource);
+
+          } else {
+            console.error("DOM node with ID='" + pID + "' undefined!");
+          };
+          return vSource
+        }
+
+        function escape_html(pHTML) {
+          pHTML = pHTML.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+          return pHTML
+        }
+
+        var print_win = null;
+
+        function print_close_win() {
+          print_win.focus();
+          print_win.print();
+          //print_win.close();
+        }
+
+        function printTextArea(pID) {
+          console.log("Print HTML content in DIV element with the ID='" + pID + "'");
+          print_win = window.open("","wPrintWin","width=600,height=300,scrollbars=1,resizable=1");
+          var code = get_source(pID);
+          // Open a print window print_win
+          print_win.document.open();
+          print_win.document.write(code);
+          print_win.document.close();
+          setTimeout(print_close_win,200);
+
+        }
+
+        function previewTextArea(pID) {
+          console.log("Preview HTML content in DIV element with the ID='" + pID + "'");
+          var preview_win = window.open("","wPreviewtWin","width=600,height=400,toolbar=yes,location=yes,status=yes,menubar=yes,scrollbars=yes,resizable=yes");
+          var code = get_source(pID,vDataJSON.tpl.preview);
+          // Open a print window print_win
+          preview_win.document.open();
+          preview_win.document.write(code);
+          preview_win.document.close();
+          preview_win.focus();
+      }
+
+    </script>
+    <!-- Load the Print and Preview Templates in folder "tpl/" -->
+    <script src="tpl/preview_tpl.js"></script>
+    <script src="tpl/print_tpl.js"></script>
+    <script src="tpl/html_tpl.js"></script>
+
+  </head>
+  <body>
+    <h2>Print4JS - Demo 4: Print Code Highlight with <a href="https://highlightjs.org/usage/" target="_blank"><tt>highlight.js</tt></a> </h2>
+    This WebApp Demo is an <a href="https://en.wikiversity.org/wiki/AppLSAC/Print" target="_blank">AppLSAC</a> showing one example of print features of WebApps.
+  <ul>
+      <li>
+        The HTML content was rendered with <a href="https://github.com/highlightjs/highlight.js" target="_blank">highlight.js</a>.
+      </li>
+      <li>
+        the rendered code highlight is used to generate the <a href="print_code.html" target="_blank">print window <tt>print_code.html</tt></a> .
+      </li>
+      <li>
+        <button onclick="previewTextArea('textarea4code');return false">Preview Print Window </button> will show the Javascript code in the text area
+      </li>
+      <li>
+        <button onclick="printTextArea('textarea4code');return false">Print HTML</button>
+        The content of the code highlight below will be used to generate the print window
+      </li>
+    </ul>
+    <hr>
+    <b>Javascript Source for Printing:</b>
+    <br>
+    You can alter the Javascript Code in the text area below prior to printing.
+    <br>
+    <textarea id="textarea4code" name="ta1" rows="8" cols="80">
+function value_check(test) {
+  if (test > 0) {
+    alert("Value greater zero");
+  } else {
+    console.error("value check for " + test + " failed!")
+  }
+}
+    </textarea>
+    <hr>
+    <center>
+      <b>
+        <a href="index.html">&lt;&lt; Demo Applications with Print4JS</a>
+      </b>
+    </center>
+
+  </body>
+</html>

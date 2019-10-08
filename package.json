@@ -47,9 +47,9 @@
     "start": "webpack-dev-server --public http://localhost:8080/test/manual --open"
   },
   "build": {
-    "readme": "README.md",
+    "readme": "README_build.md",
     "html": "docs/demo8_print_json4handlebars.html",
-    "css": "docs/css/main.css",
+    "css": "docs/css/print4js.css",
     "htmlsrc": "docs/index_src_libs.html"
   },
   "author": "Rodrigo Vieira <rodrigo@crabbly.com>",

@@ -23,7 +23,6 @@ This repository was forked from [`print.js`](https://github.com/crabbly/Print.js
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
-- [Print4JS - Print Page for JavaScript](#print4js---print-page-for-javascript)
 - [Print4JS Steps](#print4js-steps)
   - [Open Browser Window](#open-browser-window)
   - [Write Content to Browser Window](#write-content-to-browser-window)
