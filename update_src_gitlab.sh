@@ -8,8 +8,8 @@ echo "-----------------------------------"
 # this repository will be created by the script
 # Change the following settings for
 username="niebert"
-reponame="jsoneditor2menu"
-exportvar="JSONEditor2Menu"
+reponame="print4js"
+exportvar="Print4JS"
 #gittype="gitlab"
 gittype="github"
 gitsource="https://www.${gittype}.com/${gituser}/${reponame}"
